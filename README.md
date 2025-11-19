@@ -41,7 +41,7 @@
 - JWT (jsonwebtoken)
 - bcryptjs
 - Piston API (Code Execution)
-- JSON file storage
+- Supabase (PostgreSQL Database)
 
 ---
 

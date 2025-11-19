@@ -40,6 +40,7 @@ const About = () => {
     { name: 'Node.js', icon: '🟢' },
     { name: 'Express', icon: '🚂' },
     { name: 'JWT', icon: '🔐' },
+    { name: 'Supabase', icon: '🗄️' },
     { name: 'Monaco Editor', icon: '💻' },
     { name: 'Piston API', icon: '⚙️' },
   ]
