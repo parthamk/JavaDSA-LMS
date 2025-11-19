@@ -24,10 +24,34 @@ const allowedOrigins = [
   "https://javadsa-lms.vercel.app",
 ];
 
-app.use(cors({ origin: allowedOrigins, credentials: true }));
+// Updated CORS middleware to handle all origins dynamically
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  })
+);
 
-// Handle preflight requests
-app.options("*", cors({ origin: allowedOrigins, credentials: true }));
+// Handle preflight requests explicitly
+app.options(
+  "*",
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  })
+);
 
 app.use(requestLogger);
 
