@@ -93,7 +93,7 @@ const Practice = () => {
         // Display actual output (even if empty)
         setOutput(result.output || '')
         setError(null)
-        toast.success('✅ Code executed successfully!')
+        toast.success('Code executed successfully!')
       } else {
         // Display error with type and details
         const errorType = result.error || 'Execution Error'
