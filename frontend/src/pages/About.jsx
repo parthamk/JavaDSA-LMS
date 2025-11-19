@@ -266,7 +266,7 @@ const About = () => {
               with proper attribution.
             </p>
             <Button
-              href="https://github.com"
+              href="https://github.com/parthamk/JavaDSA-LMS"
               target="_blank"
               rel="noopener noreferrer"
               variant="primary"
@@ -294,10 +294,10 @@ const About = () => {
             }}
           >
             <p style={{ margin: '1rem 0', color: 'var(--text-light)', fontSize: '1.1rem' }}>
-              📧 Email: contact@javadsalearn.com
+              📧 Email: thecodeweez@gmail.com
             </p>
             <p style={{ margin: '1rem 0', color: 'var(--text-light)', fontSize: '1.1rem' }}>
-              🐙 GitHub: github.com/yourusername/java-dsa-lms
+              🐙 GitHub: https://github.com/parthamk/JavaDSA-LMS
             </p>
           </div>
         </section>
