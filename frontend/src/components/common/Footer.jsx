@@ -131,7 +131,7 @@ const Footer = () => {
             >
               <li style={{ marginBottom: '0.75rem' }}>
                 <a
-                  href="https://github.com"
+                  href="https://github.com/parthamk/JavaDSA-LMS"
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
@@ -147,7 +147,7 @@ const Footer = () => {
               </li>
               <li style={{ marginBottom: '0.75rem' }}>
                 <a
-                  href="mailto:contact@javadsalearn.com"
+                  href="mailto:thecodeweez@gmail.com"
                   style={{
                     color: 'rgba(255, 255, 255, 0.8)',
                     textDecoration: 'none',

@@ -122,7 +122,7 @@ const About = () => {
           </Row>
 
           <Button
-            href="https://github.com"
+            href="https://github.com/parthamk/JavaDSA-LMS"
             target="_blank"
             rel="noopener noreferrer"
             variant="primary"
