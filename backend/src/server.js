@@ -21,9 +21,13 @@ app.use(express.urlencoded({ extended: true }));
 
 const allowedOrigins = [
   process.env.VITE_API_URL || "http://localhost:5173",
-  "http://localhost:3000",
+  "https://javadsa-lms.vercel.app",
 ];
-app.use(cors({ origin: allowedOrigins }));
+
+app.use(cors({ origin: allowedOrigins, credentials: true }));
+
+// Handle preflight requests
+app.options("*", cors({ origin: allowedOrigins, credentials: true }));
 
 app.use(requestLogger);
 
