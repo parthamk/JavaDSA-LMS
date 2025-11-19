@@ -7,6 +7,7 @@ import {
   parseCodeBlocks,
 } from "../utils/markdownParser.js";
 import { readFile } from "fs/promises";
+import { supabase } from "../config/supabase.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -51,10 +52,25 @@ export const getCourseContent = async (req, res, next) => {
     const file = path.join(COURSES_DIR, `${courseId}.json`);
     try {
       const courseData = await readJSON(file);
-      const progress = (await readJSON(PROGRESS_FILE)) || {};
-      const userProgress = req.user
-        ? progress[req.user.id]?.[courseId] || {}
-        : {};
+      let userProgress = {};
+
+      if (req.user) {
+        const { data: progressData } = await supabase
+          .from("progress")
+          .select("*")
+          .eq("user_id", req.user.id)
+          .eq("course_id", courseId)
+          .single();
+
+        if (progressData) {
+          userProgress = {
+            sectionsCompleted: progressData.sections_completed || [],
+            bookmarks: progressData.bookmarks || [],
+            notes: progressData.notes || {},
+            progress: progressData.progress_percentage || 0,
+          };
+        }
+      }
 
       // Extract table of contents from sections
       const toc = courseData.sections.map((section, idx) => ({
@@ -122,27 +138,58 @@ export const updateProgress = async (req, res, next) => {
     const { courseId } = req.params;
     const { sectionId } = req.body;
     if (!req.user) return res.status(401).json({ message: "Unauthorized" });
-    const progress = (await readJSON(PROGRESS_FILE)) || {};
-    if (!progress[req.user.id]) progress[req.user.id] = {};
-    if (!progress[req.user.id][courseId])
-      progress[req.user.id][courseId] = {
-        sectionsCompleted: [],
-        lastAccessed: null,
-        progress: 0,
-        bookmarks: [],
-        notes: {},
-      };
-    const p = progress[req.user.id][courseId];
-    if (!p.sectionsCompleted.includes(sectionId))
-      p.sectionsCompleted.push(sectionId);
-    p.lastAccessed = new Date().toISOString();
-    // naive progress calc
-    p.progress = Math.min(
+
+    // Get existing progress
+    const { data: existingProgress } = await supabase
+      .from("progress")
+      .select("*")
+      .eq("user_id", req.user.id)
+      .eq("course_id", courseId)
+      .single();
+
+    let sectionsCompleted = existingProgress?.sections_completed || [];
+    if (!sectionsCompleted.includes(sectionId)) {
+      sectionsCompleted.push(sectionId);
+    }
+
+    const progressPercentage = Math.min(
       100,
-      Math.round((p.sectionsCompleted.length / 50) * 100)
+      Math.round((sectionsCompleted.length / 50) * 100)
     );
-    await writeJSON(PROGRESS_FILE, progress);
-    res.json(p);
+
+    const { data, error } = existingProgress
+      ? await supabase
+          .from("progress")
+          .update({
+            sections_completed: sectionsCompleted,
+            last_accessed: new Date().toISOString(),
+            progress_percentage: progressPercentage,
+          })
+          .eq("user_id", req.user.id)
+          .eq("course_id", courseId)
+          .select()
+          .single()
+      : await supabase
+          .from("progress")
+          .insert({
+            user_id: req.user.id,
+            course_id: courseId,
+            sections_completed: sectionsCompleted,
+            bookmarks: [],
+            notes: {},
+            progress_percentage: progressPercentage,
+            last_accessed: new Date().toISOString(),
+          })
+          .select()
+          .single();
+
+    if (error) throw error;
+
+    res.json({
+      sectionsCompleted: data.sections_completed,
+      progress: data.progress_percentage,
+      lastAccessed: data.last_accessed,
+    });
   } catch (err) {
     next(err);
   }
@@ -153,22 +200,48 @@ export const toggleBookmark = async (req, res, next) => {
     const { courseId } = req.params;
     const { sectionId } = req.body;
     if (!req.user) return res.status(401).json({ message: "Unauthorized" });
-    const progress = (await readJSON(PROGRESS_FILE)) || {};
-    if (!progress[req.user.id]) progress[req.user.id] = {};
-    if (!progress[req.user.id][courseId])
-      progress[req.user.id][courseId] = {
-        sectionsCompleted: [],
-        lastAccessed: null,
-        progress: 0,
-        bookmarks: [],
-        notes: {},
-      };
-    const p = progress[req.user.id][courseId];
-    const idx = p.bookmarks.indexOf(sectionId);
-    if (idx === -1) p.bookmarks.push(sectionId);
-    else p.bookmarks.splice(idx, 1);
-    await writeJSON(PROGRESS_FILE, progress);
-    res.json(p.bookmarks);
+
+    // Get existing progress
+    const { data: existingProgress } = await supabase
+      .from("progress")
+      .select("*")
+      .eq("user_id", req.user.id)
+      .eq("course_id", courseId)
+      .single();
+
+    let bookmarks = existingProgress?.bookmarks || [];
+    const idx = bookmarks.indexOf(sectionId);
+    if (idx === -1) {
+      bookmarks.push(sectionId);
+    } else {
+      bookmarks.splice(idx, 1);
+    }
+
+    const { data, error } = existingProgress
+      ? await supabase
+          .from("progress")
+          .update({ bookmarks })
+          .eq("user_id", req.user.id)
+          .eq("course_id", courseId)
+          .select()
+          .single()
+      : await supabase
+          .from("progress")
+          .insert({
+            user_id: req.user.id,
+            course_id: courseId,
+            sections_completed: [],
+            bookmarks,
+            notes: {},
+            progress_percentage: 0,
+            last_accessed: new Date().toISOString(),
+          })
+          .select()
+          .single();
+
+    if (error) throw error;
+
+    res.json(data.bookmarks);
   } catch (err) {
     next(err);
   }
@@ -179,19 +252,42 @@ export const saveNote = async (req, res, next) => {
     const { courseId } = req.params;
     const { sectionId, note } = req.body;
     if (!req.user) return res.status(401).json({ message: "Unauthorized" });
-    const progress = (await readJSON(PROGRESS_FILE)) || {};
-    if (!progress[req.user.id]) progress[req.user.id] = {};
-    if (!progress[req.user.id][courseId])
-      progress[req.user.id][courseId] = {
-        sectionsCompleted: [],
-        lastAccessed: null,
-        progress: 0,
-        bookmarks: [],
-        notes: {},
-      };
-    const p = progress[req.user.id][courseId];
-    p.notes[sectionId] = note;
-    await writeJSON(PROGRESS_FILE, progress);
+
+    // Get existing progress
+    const { data: existingProgress } = await supabase
+      .from("progress")
+      .select("*")
+      .eq("user_id", req.user.id)
+      .eq("course_id", courseId)
+      .single();
+
+    let notes = existingProgress?.notes || {};
+    notes[sectionId] = note;
+
+    const { data, error } = existingProgress
+      ? await supabase
+          .from("progress")
+          .update({ notes })
+          .eq("user_id", req.user.id)
+          .eq("course_id", courseId)
+          .select()
+          .single()
+      : await supabase
+          .from("progress")
+          .insert({
+            user_id: req.user.id,
+            course_id: courseId,
+            sections_completed: [],
+            bookmarks: [],
+            notes,
+            progress_percentage: 0,
+            last_accessed: new Date().toISOString(),
+          })
+          .select()
+          .single();
+
+    if (error) throw error;
+
     res.json({ sectionId, note });
   } catch (err) {
     next(err);
@@ -201,9 +297,27 @@ export const saveNote = async (req, res, next) => {
 export const getUserProgress = async (req, res, next) => {
   try {
     if (!req.user) return res.status(401).json({ message: "Unauthorized" });
-    const progress = (await readJSON(PROGRESS_FILE)) || {};
-    const userProgress = progress[req.user.id] || {};
-    res.json(userProgress);
+
+    const { data: progressData, error } = await supabase
+      .from("progress")
+      .select("*")
+      .eq("user_id", req.user.id);
+
+    if (error) throw error;
+
+    // Format progress data
+    const formattedProgress = {};
+    progressData.forEach((p) => {
+      formattedProgress[p.course_id] = {
+        sectionsCompleted: p.sections_completed || [],
+        bookmarks: p.bookmarks || [],
+        notes: p.notes || {},
+        progress: p.progress_percentage || 0,
+        lastAccessed: p.last_accessed,
+      };
+    });
+
+    res.json(formattedProgress);
   } catch (err) {
     next(err);
   }

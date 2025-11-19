@@ -10,6 +10,7 @@ import codeRoutes from "./routes/codeRoutes.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 import { requestLogger } from "./middleware/requestLogger.js";
 import { validateEnv } from "./config/config.js";
+import { testConnection } from "./config/supabase.js";
 
 dotenv.config();
 validateEnv();
@@ -66,6 +67,8 @@ app.use("/api/code", codeRoutes);
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.log(`Backend running on port ${PORT}`);
+  // Test Supabase connection
+  await testConnection();
 });
