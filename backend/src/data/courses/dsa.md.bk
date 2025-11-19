@@ -1,0 +1,28 @@
+# Data Structures & Algorithms
+
+## 1.1 Introduction to DSA
+
+Data Structures and Algorithms are fundamental to building efficient programs and solving complex problems.
+
+```java
+// Example: simple array usage
+int[] arr = {1, 2, 3, 4, 5};
+```
+
+## 1.2 Arrays and Lists
+
+Understanding arrays, dynamic arrays, and linked lists.
+
+```java
+java.util.ArrayList<Integer> list = new java.util.ArrayList<>();
+list.add(10);
+list.add(20);
+```
+
+## 2.1 Sorting Algorithms
+
+Learn about QuickSort, MergeSort, and BubbleSort.
+
+## 2.2 Searching Algorithms
+
+Binary search and linear search implementation.

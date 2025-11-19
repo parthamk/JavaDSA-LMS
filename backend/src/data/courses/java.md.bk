@@ -1,0 +1,766 @@
+# Comprehensive Java Training Module: Basic to Advanced Level
+
+## Table of Contents
+
+1. [Part 1: Java Fundamentals (Basic Level)](#part-1-java-fundamentals-basic-level)
+2. [Part 2: Object-Oriented Programming (Intermediate Level)](#part-2-object-oriented-programming-intermediate-level)
+3. [Part 3: Advanced Java Concepts](#part-3-advanced-java-concepts)
+4. [Part 4: Design Patterns & Best Practices](#part-4-design-patterns--best-practices)
+5. [Interview Preparation Guide](#interview-preparation-guide)
+
+---
+
+# PART 1: JAVA FUNDAMENTALS (BASIC LEVEL)
+
+## 1.1 Introduction to Java
+
+### What is Java?
+Java is a **general-purpose, class-based, object-oriented programming language** designed to have as few implementation dependencies as possible. Key characteristics:
+
+- **Platform-independent**: "Write Once, Run Anywhere" (WORA)
+- **Secure**: Built-in security features and no direct memory access
+- **Robust**: Strong type-checking and exception handling
+- **Multi-threaded**: Native support for concurrent programming
+- **Compiled and Interpreted**: Java code is compiled to bytecode and interpreted by JVM
+
+### Java Architecture
+
+```
+Source Code (.java)
+    ↓
+Java Compiler (javac)
+    ↓
+Bytecode (.class)
+    ↓
+JVM (Java Virtual Machine)
+    ↓
+Operating System → Hardware Execution
+```
+
+---
+
+## 1.2 Basic Syntax & Program Structure
+
+### Minimal Java Program
+
+```java
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+```
+
+**Breaking Down the Code:**
+- `public`: Access modifier (visible everywhere)
+- `class`: Keyword to define a class
+- `HelloWorld`: Class name (must match filename)
+- `static`: Method belongs to class, not instance
+- `void`: Method returns nothing
+- `main()`: Entry point of program
+- `String[] args`: Command-line arguments
+- `System.out.println()`: Print to console with newline
+
+---
+
+## 1.3 Variables & Data Types
+
+### Primitive Data Types (8 Types)
+
+| Type | Size | Range | Example |
+|------|------|-------|---------|
+| byte | 1 byte | -128 to 127 | `byte b = 10;` |
+| short | 2 bytes | -32,768 to 32,767 | `short s = 1000;` |
+| int | 4 bytes | -2B to 2B | `int i = 100000;` |
+| long | 8 bytes | -9.2Q to 9.2Q | `long l = 1000L;` |
+| float | 4 bytes | ±3.4E38 | `float f = 5.5f;` |
+| double | 8 bytes | ±1.7E308 | `double d = 5.5;` |
+| char | 2 bytes | 0 to 65535 | `char c = 'A';` |
+| boolean | 1 bit | true/false | `boolean b = true;` |
+
+### Type Casting
+
+**Implicit (Automatic) Casting:**
+```java
+int i = 10;
+long l = i;              // Automatic - smaller to larger
+double d = i;            // Automatic - int to double
+```
+
+**Explicit (Manual) Casting:**
+```java
+double d = 10.5;
+int i = (int) d;         // Explicit - result: i = 10
+```
+
+---
+
+## 1.4 Operators
+
+### Arithmetic Operators
+
+```java
+int a = 10, b = 3;
+int sum = a + b;        // 13
+int diff = a - b;       // 7
+int product = a * b;    // 30
+int quotient = a / b;   // 3
+int remainder = a % b;  // 1
+```
+
+### Logical Operators
+
+```java
+boolean a = true, b = false;
+a && b;   // false (AND)
+a || b;   // true (OR)
+!a;       // false (NOT)
+```
+
+---
+
+## 1.5 Conditionals
+
+### if-else Statement
+
+```java
+int age = 20;
+if (age >= 18) {
+    System.out.println("Adult");
+} else {
+    System.out.println("Minor");
+}
+```
+
+### switch Statement
+
+```java
+int day = 3;
+switch (day) {
+    case 1:
+        System.out.println("Monday");
+        break;
+    case 2:
+        System.out.println("Tuesday");
+        break;
+    default:
+        System.out.println("Other day");
+}
+```
+
+---
+
+## 1.6 Loops
+
+### for Loop
+
+```java
+for (int i = 0; i < 5; i++) {
+    System.out.println(i);  // 0 1 2 3 4
+}
+```
+
+### while Loop
+
+```java
+int count = 0;
+while (count < 5) {
+    System.out.println(count);
+    count++;
+}
+```
+
+### for-each Loop
+
+```java
+int[] numbers = {10, 20, 30, 40};
+for (int num : numbers) {
+    System.out.println(num);
+}
+```
+
+---
+
+## 1.7 Arrays
+
+### Array Fundamentals
+
+```java
+// Declaration + Initialization
+int[] numbers = {10, 20, 30, 40, 50};
+
+// Access by index (0-indexed)
+int first = numbers[0];    // 10
+int last = numbers[4];     // 50
+int size = numbers.length; // 5
+```
+
+### Multi-dimensional Arrays
+
+```java
+// 2D Array
+int[][] matrix = {
+    {1, 2, 3},
+    {4, 5, 6},
+    {7, 8, 9}
+};
+
+// Access
+int value = matrix[1][2];  // 6
+```
+
+---
+
+## 1.8 String Operations
+
+### String Methods
+
+```java
+String str = "Hello World";
+
+int len = str.length();  // 11
+char ch = str.charAt(0);  // 'H'
+String sub = str.substring(0, 5);  // "Hello"
+int index = str.indexOf('o');  // 4
+String upper = str.toUpperCase();  // "HELLO WORLD"
+String replaced = str.replace('o', '0');  // "Hell0 W0rld"
+boolean contains = str.contains("World");  // true
+```
+
+### String Immutability
+
+```java
+// Better: Use StringBuilder for concatenation
+StringBuilder sb = new StringBuilder();
+for (int i = 0; i < 1000; i++) {
+    sb.append(i);
+}
+String result = sb.toString();
+```
+
+---
+
+## 1.9 Methods
+
+### Method Basics
+
+```java
+public static int add(int a, int b) {
+    return a + b;
+}
+
+int result = add(5, 3);  // 8
+```
+
+### Method Overloading
+
+```java
+public static void display(int x) {
+    System.out.println("Int: " + x);
+}
+
+public static void display(String x) {
+    System.out.println("String: " + x);
+}
+
+display(5);        // First version
+display("Hello");  // Second version
+```
+
+### Practice: Prime Number Checker
+
+```java
+public static boolean isPrime(int number) {
+    if (number < 2) return false;
+    if (number == 2) return true;
+    if (number % 2 == 0) return false;
+    
+    for (int i = 3; i <= Math.sqrt(number); i += 2) {
+        if (number % i == 0) return false;
+    }
+    return true;
+}
+```
+
+---
+
+# PART 2: OBJECT-ORIENTED PROGRAMMING (INTERMEDIATE LEVEL)
+
+## 2.1 Classes and Objects
+
+### Basic Class Structure
+
+```java
+public class Student {
+    private String name;
+    private int rollNumber;
+    private double gpa;
+    
+    public Student(String name, int rollNumber, double gpa) {
+        this.name = name;
+        this.rollNumber = rollNumber;
+        this.gpa = Math.min(4.0, Math.max(0, gpa));
+    }
+    
+    public String getName() { return name; }
+    public int getRollNumber() { return rollNumber; }
+    public double getGPA() { return gpa; }
+    
+    public void setGPA(double newGPA) {
+        this.gpa = Math.min(4.0, Math.max(0, newGPA));
+    }
+    
+    public void displayInfo() {
+        System.out.println("Name: " + name);
+        System.out.println("Roll: " + rollNumber);
+        System.out.println("GPA: " + String.format("%.2f", gpa));
+    }
+}
+```
+
+### Creating Objects
+
+```java
+Student student1 = new Student("Alice", 101, 3.8);
+Student student2 = new Student("Bob", 102, 3.5);
+
+student1.displayInfo();
+student1.setGPA(3.9);
+```
+
+---
+
+## 2.2 Inheritance
+
+### Basic Inheritance
+
+```java
+public class Animal {
+    protected String name;
+    
+    public Animal(String name) {
+        this.name = name;
+    }
+    
+    public void sound() {
+        System.out.println("Generic animal sound");
+    }
+}
+
+public class Dog extends Animal {
+    private String breed;
+    
+    public Dog(String name, String breed) {
+        super(name);
+        this.breed = breed;
+    }
+    
+    @Override
+    public void sound() {
+        System.out.println(name + " barks: Woof!");
+    }
+}
+
+// Usage
+Dog dog = new Dog("Buddy", "Golden Retriever");
+dog.sound();  // Buddy barks: Woof!
+```
+
+---
+
+## 2.3 Polymorphism
+
+### Method Overriding
+
+```java
+public abstract class PaymentMethod {
+    public abstract void process();
+}
+
+public class CreditCard extends PaymentMethod {
+    @Override
+    public void process() {
+        System.out.println("Processing credit card payment");
+    }
+}
+
+public class PayPal extends PaymentMethod {
+    @Override
+    public void process() {
+        System.out.println("Processing PayPal payment");
+    }
+}
+```
+
+---
+
+## 2.4 Encapsulation
+
+```java
+public class BankAccount {
+    private double balance;
+    
+    public BankAccount(double initialBalance) {
+        this.balance = Math.max(0, initialBalance);
+    }
+    
+    public void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+            System.out.println("Deposited: " + amount);
+        }
+    }
+    
+    public boolean withdraw(double amount) {
+        if (amount > 0 && amount <= balance) {
+            balance -= amount;
+            return true;
+        }
+        return false;
+    }
+    
+    public double getBalance() {
+        return balance;
+    }
+}
+```
+
+---
+
+## 2.5 Abstraction and Interfaces
+
+### Interfaces
+
+```java
+public interface Animal {
+    void sound();
+    void sleep();
+    
+    default void eat() {
+        System.out.println("Eating...");
+    }
+}
+
+public class Dog implements Animal {
+    @Override
+    public void sound() {
+        System.out.println("Woof!");
+    }
+    
+    @Override
+    public void sleep() {
+        System.out.println("Dog sleeping");
+    }
+}
+```
+
+---
+
+# PART 3: ADVANCED JAVA CONCEPTS
+
+## 3.1 Collections Framework
+
+### ArrayList
+
+```java
+ArrayList<String> list = new ArrayList<>();
+list.add("Java");
+list.add(0, "Python");
+list.remove(0);
+list.clear();
+
+String element = list.get(0);
+int size = list.size();
+
+for (String lang : list) {
+    System.out.println(lang);
+}
+```
+
+### Set Interface
+
+```java
+Set<Integer> hashSet = new HashSet<>();
+hashSet.add(5);
+hashSet.add(2);
+hashSet.add(8);
+
+Set<Integer> treeSet = new TreeSet<>();
+treeSet.add(5);
+treeSet.add(2);
+treeSet.add(8);  // Sorted: [2, 5, 8]
+```
+
+### Map Interface
+
+```java
+Map<Integer, String> map = new HashMap<>();
+map.put(1, "Alice");
+map.put(2, "Bob");
+
+String value = map.get(1);
+boolean hasKey = map.containsKey(1);
+
+for (Map.Entry<Integer, String> entry : map.entrySet()) {
+    System.out.println(entry.getKey() + ": " + entry.getValue());
+}
+```
+
+---
+
+## 3.2 Exception Handling
+
+### try-catch-finally
+
+```java
+try {
+    int[] arr = {1, 2, 3};
+    int value = arr[5];
+} catch (ArrayIndexOutOfBoundsException e) {
+    System.out.println("Array index out of bounds");
+} catch (Exception e) {
+    System.out.println("Some exception occurred");
+} finally {
+    System.out.println("Cleanup done");
+}
+```
+
+### Custom Exceptions
+
+```java
+public class InvalidAgeException extends Exception {
+    public InvalidAgeException(String message) {
+        super(message);
+    }
+}
+
+public static void validateAge(int age) throws InvalidAgeException {
+    if (age < 0 || age > 120) {
+        throw new InvalidAgeException("Age must be between 0 and 120");
+    }
+}
+```
+
+---
+
+## 3.3 Generics
+
+### Generic Methods
+
+```java
+public static <T> void printArray(T[] array) {
+    for (T element : array) {
+        System.out.println(element);
+    }
+}
+
+printArray(new Integer[]{1, 2, 3});
+printArray(new String[]{"a", "b", "c"});
+```
+
+### Generic Classes
+
+```java
+public class Box<T> {
+    private T content;
+    
+    public void set(T content) {
+        this.content = content;
+    }
+    
+    public T get() {
+        return content;
+    }
+}
+
+Box<String> stringBox = new Box<>();
+stringBox.set("Hello");
+```
+
+---
+
+## 3.4 Streams API (Java 8+)
+
+```java
+List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+
+// Filter
+List<Integer> evens = numbers.stream()
+    .filter(n -> n % 2 == 0)
+    .collect(Collectors.toList());
+
+// Map
+List<Integer> squared = numbers.stream()
+    .map(n -> n * n)
+    .collect(Collectors.toList());
+
+// Reduce
+int sum = numbers.stream()
+    .reduce(0, (a, b) -> a + b);
+```
+
+---
+
+## 3.5 Multithreading
+
+### Thread Basics
+
+```java
+public class MyThread extends Thread {
+    public void run() {
+        for (int i = 0; i < 5; i++) {
+            System.out.println("Thread: " + i);
+        }
+    }
+}
+
+Thread t = new MyThread();
+t.start();
+```
+
+### Using Runnable
+
+```java
+public class MyRunnable implements Runnable {
+    @Override
+    public void run() {
+        System.out.println("Running in thread");
+    }
+}
+
+Thread t = new Thread(new MyRunnable());
+t.start();
+```
+
+---
+
+# PART 4: DESIGN PATTERNS & BEST PRACTICES
+
+## 4.1 Singleton Pattern
+
+```java
+public class Singleton {
+    private static Singleton instance;
+    
+    private Singleton() { }
+    
+    public static synchronized Singleton getInstance() {
+        if (instance == null) {
+            instance = new Singleton();
+        }
+        return instance;
+    }
+}
+```
+
+## 4.2 Factory Pattern
+
+```java
+public class VehicleFactory {
+    public static Vehicle createVehicle(String type) {
+        if ("car".equalsIgnoreCase(type)) {
+            return new Car();
+        } else if ("bike".equalsIgnoreCase(type)) {
+            return new Bike();
+        }
+        return null;
+    }
+}
+```
+
+---
+
+# INTERVIEW PREPARATION GUIDE
+
+## Common Questions
+
+**Q: What are the differences between Stack and Heap memory?**
+A: Stack stores primitive values and references (thread-safe). Heap stores objects (shared by threads).
+
+**Q: Explain == vs .equals()**
+A: `==` compares reference, `.equals()` compares content. Use `.equals()` for strings.
+
+**Q: What is autoboxing and unboxing?**
+A: Autoboxing converts primitive to wrapper (int → Integer). Unboxing converts wrapper to primitive.
+
+**Q: What are the 4 pillars of OOP?**
+A: Encapsulation, Inheritance, Polymorphism, Abstraction.
+
+**Q: Can you override a static method?**
+A: No, static methods cannot be overridden.
+
+**Q: What's the difference between ArrayList and LinkedList?**
+A: ArrayList uses array (O(1) access). LinkedList uses linked list (O(1) insertion).
+
+**Q: Why is HashMap not thread-safe?**
+A: HashMap allows concurrent modification. Use ConcurrentHashMap for thread safety.
+
+---
+
+## Practice Problems
+
+### Problem 1: Factorial Calculator
+
+```java
+public static long factorial(int n) {
+    if (n < 0) return -1;
+    if (n == 0 || n == 1) return 1;
+    
+    long result = 1;
+    for (int i = 2; i <= n; i++) {
+        result *= i;
+    }
+    return result;
+}
+```
+
+### Problem 2: String Reversal
+
+```java
+public static String reverseString(String str) {
+    return new StringBuilder(str).reverse().toString();
+}
+```
+
+### Problem 3: Student Management System
+
+```java
+import java.util.*;
+
+public class StudentManagementSystem {
+    static class Student implements Comparable<Student> {
+        String name;
+        int rollNo;
+        double gpa;
+        
+        public Student(String name, int rollNo, double gpa) {
+            this.name = name;
+            this.rollNo = rollNo;
+            this.gpa = gpa;
+        }
+        
+        @Override
+        public int compareTo(Student other) {
+            return Double.compare(other.gpa, this.gpa);
+        }
+    }
+    
+    public static void main(String[] args) {
+        List<Student> students = new ArrayList<>();
+        students.add(new Student("Alice", 101, 3.9));
+        students.add(new Student("Bob", 102, 3.5));
+        students.add(new Student("Charlie", 103, 3.8));
+        
+        Collections.sort(students);
+        for (Student s : students) {
+            System.out.println(s.name + ": " + s.gpa);
+        }
+    }
+}
+```
+
+---
+
+**Last Updated:** 2025
+**Java Version:** Java 8+
+**Difficulty:** Basic to Advanced

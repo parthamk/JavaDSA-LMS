@@ -1,0 +1,10 @@
+[
+  {
+    "id": "a5018a75-ed0b-4c10-9e33-783ad8f29698",
+    "username": "testuser",
+    "email": "test@test.com",
+    "password": "$2a$10$b0VzZfO6BztJZbvGLaECI.RS8KlPLFBiQjP1VZGfNMyYiBiDqCYvu",
+    "createdAt": "2025-11-18T21:47:15.605Z",
+    "lastLogin": "2025-11-18T23:03:33.484Z"
+  }
+]

@@ -1,0 +1,432 @@
+{
+  "id": "java",
+  "title": "Comprehensive Java Training Module",
+  "description": "Master Java from basic to advanced level with hands-on examples and interview preparation",
+  "difficulty": "Basic to Advanced",
+  "duration": "50+ hours",
+  "sections": [
+    {
+      "id": "1",
+      "number": "1.1",
+      "title": "Introduction to Java",
+      "subsections": [
+        {
+          "id": "1-1",
+          "title": "What is Java?",
+          "type": "content",
+          "content": "Java is a general-purpose, class-based, object-oriented programming language designed to have as few implementation dependencies as possible.",
+          "keyPoints": [
+            {
+              "label": "Platform-independent",
+              "description": "Write Once, Run Anywhere (WORA)"
+            },
+            {
+              "label": "Secure",
+              "description": "Built-in security features and no direct memory access"
+            },
+            {
+              "label": "Robust",
+              "description": "Strong type-checking and exception handling"
+            },
+            {
+              "label": "Multi-threaded",
+              "description": "Native support for concurrent programming"
+            },
+            {
+              "label": "Compiled and Interpreted",
+              "description": "Java code is compiled to bytecode and interpreted by JVM"
+            }
+          ]
+        },
+        {
+          "id": "1-2",
+          "title": "Java Architecture",
+          "type": "diagram",
+          "content": "Source Code (.java) → Java Compiler (javac) → Bytecode (.class) → JVM (Java Virtual Machine) → Operating System → Hardware Execution"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "number": "1.2",
+      "title": "Basic Syntax & Program Structure",
+      "subsections": [
+        {
+          "id": "2-1",
+          "title": "Minimal Java Program",
+          "type": "code",
+          "language": "java",
+          "code": "public class HelloWorld {\n    public static void main(String[] args) {\n        System.out.println(\"Hello, World!\");\n    }\n}",
+          "explanation": "Breaking Down the Code:\n- public: Access modifier (visible everywhere)\n- class: Keyword to define a class\n- HelloWorld: Class name (must match filename)\n- static: Method belongs to class, not instance\n- void: Method returns nothing\n- main(): Entry point of program\n- String[] args: Command-line arguments\n- System.out.println(): Print to console with newline"
+        },
+        {
+          "id": "2-2",
+          "title": "Naming Conventions",
+          "type": "table",
+          "data": [
+            {
+              "Item": "Class",
+              "Convention": "PascalCase",
+              "Example": "StudentManager, BankAccount"
+            },
+            {
+              "Item": "Method",
+              "Convention": "camelCase",
+              "Example": "calculateGPA(), getName()"
+            },
+            {
+              "Item": "Variable",
+              "Convention": "camelCase",
+              "Example": "studentName, totalMarks"
+            },
+            {
+              "Item": "Constant",
+              "Convention": "UPPER_SNAKE_CASE",
+              "Example": "MAX_AGE, PI_VALUE"
+            },
+            {
+              "Item": "Package",
+              "Convention": "lowercase",
+              "Example": "com.example.util"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "number": "1.3",
+      "title": "Variables & Data Types",
+      "subsections": [
+        {
+          "id": "3-1",
+          "title": "Primitive Data Types (8 Types)",
+          "type": "table",
+          "data": [
+            {
+              "Type": "byte",
+              "Size": "1 byte",
+              "Range": "-128 to 127",
+              "Example": "byte b = 10;"
+            },
+            {
+              "Type": "short",
+              "Size": "2 bytes",
+              "Range": "-32,768 to 32,767",
+              "Example": "short s = 1000;"
+            },
+            {
+              "Type": "int",
+              "Size": "4 bytes",
+              "Range": "-2B to 2B",
+              "Example": "int i = 100000;"
+            },
+            {
+              "Type": "long",
+              "Size": "8 bytes",
+              "Range": "-9.2Q to 9.2Q",
+              "Example": "long l = 1000L;"
+            },
+            {
+              "Type": "float",
+              "Size": "4 bytes",
+              "Range": "±3.4E38",
+              "Example": "float f = 5.5f;"
+            },
+            {
+              "Type": "double",
+              "Size": "8 bytes",
+              "Range": "±1.7E308",
+              "Example": "double d = 5.5;"
+            },
+            {
+              "Type": "char",
+              "Size": "2 bytes",
+              "Range": "0 to 65535",
+              "Example": "char c = 'A';"
+            },
+            {
+              "Type": "boolean",
+              "Size": "1 bit",
+              "Range": "true/false",
+              "Example": "boolean b = true;"
+            }
+          ]
+        },
+        {
+          "id": "3-2",
+          "title": "Type Casting",
+          "type": "code",
+          "language": "java",
+          "code": "// Implicit (Automatic) Casting\nint i = 10;\nlong l = i;              // Automatic - smaller to larger\ndouble d = i;            // Automatic - int to double\n\n// Explicit (Manual) Casting\ndouble d = 10.5;\nint i = (int) d;         // Explicit - result: i = 10",
+          "explanation": "Implicit casting is like upgrading (always safe). Explicit casting is like downgrading (might lose data)."
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "number": "1.4",
+      "title": "Operators",
+      "subsections": [
+        {
+          "id": "4-1",
+          "title": "Arithmetic Operators",
+          "type": "code",
+          "language": "java",
+          "code": "int a = 10, b = 3;\nint sum = a + b;        // 13\nint diff = a - b;       // 7\nint product = a * b;    // 30\nint quotient = a / b;   // 3\nint remainder = a % b;  // 1"
+        },
+        {
+          "id": "4-2",
+          "title": "Logical Operators",
+          "type": "code",
+          "language": "java",
+          "code": "boolean a = true, b = false;\na && b;   // false (AND)\na || b;   // true (OR)\n!a;       // false (NOT)"
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "number": "1.5",
+      "title": "Conditionals",
+      "subsections": [
+        {
+          "id": "5-1",
+          "title": "if-else Statement",
+          "type": "code",
+          "language": "java",
+          "code": "int age = 20;\nif (age >= 18) {\n    System.out.println(\"Adult\");\n} else {\n    System.out.println(\"Minor\");\n}"
+        },
+        {
+          "id": "5-2",
+          "title": "switch Statement",
+          "type": "code",
+          "language": "java",
+          "code": "int day = 3;\nswitch (day) {\n    case 1:\n        System.out.println(\"Monday\");\n        break;\n    case 2:\n        System.out.println(\"Tuesday\");\n        break;\n    default:\n        System.out.println(\"Other day\");\n}"
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "number": "1.6",
+      "title": "Loops",
+      "subsections": [
+        {
+          "id": "6-1",
+          "title": "for Loop",
+          "type": "code",
+          "language": "java",
+          "code": "for (int i = 0; i < 5; i++) {\n    System.out.println(i);  // 0 1 2 3 4\n}"
+        },
+        {
+          "id": "6-2",
+          "title": "while Loop",
+          "type": "code",
+          "language": "java",
+          "code": "int count = 0;\nwhile (count < 5) {\n    System.out.println(count);\n    count++;\n}"
+        },
+        {
+          "id": "6-3",
+          "title": "for-each Loop",
+          "type": "code",
+          "language": "java",
+          "code": "int[] numbers = {10, 20, 30, 40};\nfor (int num : numbers) {\n    System.out.println(num);\n}"
+        }
+      ]
+    },
+    {
+      "id": "7",
+      "number": "1.7",
+      "title": "Arrays",
+      "subsections": [
+        {
+          "id": "7-1",
+          "title": "Array Fundamentals",
+          "type": "code",
+          "language": "java",
+          "code": "// Declaration + Initialization\nint[] numbers = {10, 20, 30, 40, 50};\n\n// Access by index (0-indexed)\nint first = numbers[0];    // 10\nint last = numbers[4];     // 50\nint size = numbers.length; // 5"
+        },
+        {
+          "id": "7-2",
+          "title": "Multi-dimensional Arrays",
+          "type": "code",
+          "language": "java",
+          "code": "// 2D Array\nint[][] matrix = {\n    {1, 2, 3},\n    {4, 5, 6},\n    {7, 8, 9}\n};\n\n// Access\nint value = matrix[1][2];  // 6"
+        }
+      ]
+    },
+    {
+      "id": "8",
+      "number": "1.8",
+      "title": "String Operations",
+      "subsections": [
+        {
+          "id": "8-1",
+          "title": "String Methods",
+          "type": "code",
+          "language": "java",
+          "code": "String str = \"Hello World\";\nint len = str.length();  // 11\nchar ch = str.charAt(0);  // 'H'\nString sub = str.substring(0, 5);  // \"Hello\"\nint index = str.indexOf('o');  // 4\nString upper = str.toUpperCase();  // \"HELLO WORLD\"\nString replaced = str.replace('o', '0');  // \"Hell0 W0rld\"\nboolean contains = str.contains(\"World\");  // true"
+        }
+      ]
+    },
+    {
+      "id": "9",
+      "number": "1.9",
+      "title": "Methods",
+      "subsections": [
+        {
+          "id": "9-1",
+          "title": "Method Basics",
+          "type": "code",
+          "language": "java",
+          "code": "public static int add(int a, int b) {\n    return a + b;\n}\n\nint result = add(5, 3);  // 8"
+        },
+        {
+          "id": "9-2",
+          "title": "Practice: Prime Number Checker",
+          "type": "code",
+          "language": "java",
+          "code": "public static boolean isPrime(int number) {\n    if (number < 2) return false;\n    if (number == 2) return true;\n    if (number % 2 == 0) return false;\n    \n    for (int i = 3; i <= Math.sqrt(number); i += 2) {\n        if (number % i == 0) return false;\n    }\n    return true;\n}"
+        }
+      ]
+    },
+    {
+      "id": "10",
+      "number": "2.1",
+      "title": "Classes and Objects",
+      "subsections": [
+        {
+          "id": "10-1",
+          "title": "Basic Class Structure",
+          "type": "code",
+          "language": "java",
+          "code": "public class Student {\n    private String name;\n    private int rollNumber;\n    private double gpa;\n    \n    public Student(String name, int rollNumber, double gpa) {\n        this.name = name;\n        this.rollNumber = rollNumber;\n        this.gpa = Math.min(4.0, Math.max(0, gpa));\n    }\n    \n    public String getName() { return name; }\n    public double getGPA() { return gpa; }\n    \n    public void setGPA(double newGPA) {\n        this.gpa = Math.min(4.0, Math.max(0, newGPA));\n    }\n}"
+        }
+      ]
+    },
+    {
+      "id": "11",
+      "number": "2.2",
+      "title": "Inheritance",
+      "subsections": [
+        {
+          "id": "11-1",
+          "title": "Basic Inheritance Example",
+          "type": "code",
+          "language": "java",
+          "code": "public class Animal {\n    protected String name;\n    \n    public Animal(String name) {\n        this.name = name;\n    }\n    \n    public void sound() {\n        System.out.println(\"Generic animal sound\");\n    }\n}\n\npublic class Dog extends Animal {\n    public Dog(String name) {\n        super(name);\n    }\n    \n    @Override\n    public void sound() {\n        System.out.println(name + \" barks: Woof!\");\n    }\n}\n\nDog dog = new Dog(\"Buddy\");\ndog.sound();  // Buddy barks: Woof!"
+        }
+      ]
+    },
+    {
+      "id": "12",
+      "number": "3.1",
+      "title": "Collections Framework",
+      "subsections": [
+        {
+          "id": "12-1",
+          "title": "ArrayList",
+          "type": "code",
+          "language": "java",
+          "code": "ArrayList<String> list = new ArrayList<>();\nlist.add(\"Java\");\nlist.add(0, \"Python\");\nlist.remove(0);\n\nString element = list.get(0);\nint size = list.size();\n\nfor (String lang : list) {\n    System.out.println(lang);\n}"
+        },
+        {
+          "id": "12-2",
+          "title": "HashMap",
+          "type": "code",
+          "language": "java",
+          "code": "Map<Integer, String> map = new HashMap<>();\nmap.put(1, \"Alice\");\nmap.put(2, \"Bob\");\n\nString value = map.get(1);\nboolean hasKey = map.containsKey(1);\n\nfor (Map.Entry<Integer, String> entry : map.entrySet()) {\n    System.out.println(entry.getKey() + \": \" + entry.getValue());\n}"
+        }
+      ]
+    },
+    {
+      "id": "13",
+      "number": "3.2",
+      "title": "Exception Handling",
+      "subsections": [
+        {
+          "id": "13-1",
+          "title": "try-catch-finally",
+          "type": "code",
+          "language": "java",
+          "code": "try {\n    int[] arr = {1, 2, 3};\n    int value = arr[5];\n} catch (ArrayIndexOutOfBoundsException e) {\n    System.out.println(\"Array index out of bounds\");\n} catch (Exception e) {\n    System.out.println(\"Some exception occurred\");\n} finally {\n    System.out.println(\"Cleanup done\");\n}"
+        }
+      ]
+    }
+  ],
+  "interviewQuestions": [
+    {
+      "id": "q1",
+      "question": "What are the differences between Stack and Heap memory?",
+      "answer": "Stack stores primitive values and references (thread-safe). Heap stores objects (shared by threads)."
+    },
+    {
+      "id": "q2",
+      "question": "Explain == vs .equals()",
+      "answer": "== compares reference, .equals() compares content. Use .equals() for strings."
+    },
+    {
+      "id": "q3",
+      "question": "What is autoboxing and unboxing?",
+      "answer": "Autoboxing converts primitive to wrapper (int → Integer). Unboxing converts wrapper to primitive."
+    },
+    {
+      "id": "q4",
+      "question": "What are the 4 pillars of OOP?",
+      "answer": "Encapsulation, Inheritance, Polymorphism, Abstraction."
+    },
+    {
+      "id": "q5",
+      "question": "Can you override a static method?",
+      "answer": "No, static methods cannot be overridden."
+    },
+    {
+      "id": "q6",
+      "question": "What's the difference between ArrayList and LinkedList?",
+      "answer": "ArrayList uses array (O(1) access). LinkedList uses linked list (O(1) insertion)."
+    },
+    {
+      "id": "q7",
+      "question": "Why is HashMap not thread-safe?",
+      "answer": "HashMap allows concurrent modification. Use ConcurrentHashMap for thread safety."
+    }
+  ],
+  "practiceProblems": [
+    {
+      "id": "p1",
+      "title": "Factorial Calculator",
+      "difficulty": "Easy",
+      "description": "Calculate the factorial of a number",
+      "code": "public static long factorial(int n) {\n    if (n < 0) return -1;\n    if (n == 0 || n == 1) return 1;\n    \n    long result = 1;\n    for (int i = 2; i <= n; i++) {\n        result *= i;\n    }\n    return result;\n}",
+      "testCases": [
+        { "input": "5", "output": "120" },
+        { "input": "0", "output": "1" },
+        { "input": "10", "output": "3628800" }
+      ]
+    },
+    {
+      "id": "p2",
+      "title": "String Reversal",
+      "difficulty": "Easy",
+      "description": "Reverse a string without using built-in reverse method",
+      "code": "public static String reverseString(String str) {\n    return new StringBuilder(str).reverse().toString();\n}",
+      "testCases": [
+        { "input": "Hello", "output": "olleH" },
+        { "input": "Java", "output": "avaJ" }
+      ]
+    },
+    {
+      "id": "p3",
+      "title": "Prime Number Checker",
+      "difficulty": "Medium",
+      "description": "Check if a number is prime",
+      "code": "public static boolean isPrime(int number) {\n    if (number < 2) return false;\n    if (number == 2) return true;\n    if (number % 2 == 0) return false;\n    \n    for (int i = 3; i <= Math.sqrt(number); i += 2) {\n        if (number % i == 0) return false;\n    }\n    return true;\n}",
+      "testCases": [
+        { "input": "17", "output": "true" },
+        { "input": "20", "output": "false" },
+        { "input": "2", "output": "true" }
+      ]
+    }
+  ],
+  "lastUpdated": "2025-11-19",
+  "version": "1.0"
+}
