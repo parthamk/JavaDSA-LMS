@@ -390,7 +390,7 @@ const markdownComponents = {
 }
 
 const CourseViewer = () => {
-  const { courseId } = useParams()
+  const { courseId, sectionId } = useParams()
   const navigate = useNavigate()
   const [course, setCourse] = useState(null)
   const [currentSectionIndex, setCurrentSectionIndex] = useState(0)
@@ -500,8 +500,8 @@ const CourseViewer = () => {
               key={section.id}
               onClick={() => setCurrentSectionIndex(index)}
               className={`p-2 mb-2 rounded cursor-pointer d-flex align-items-center gap-2 ${index === currentSectionIndex
-                  ? 'bg-primary text-white'
-                  : 'bg-light text-muted'
+                ? 'bg-primary text-white'
+                : 'bg-light text-muted'
                 }`}
               style={{ cursor: 'pointer', transition: 'all 0.3s ease' }}
             >
