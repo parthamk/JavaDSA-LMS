@@ -412,13 +412,14 @@ const CourseViewer = () => {
 
         // Set initial section content
         const initialSection = courseData.sections[initialSectionIndex];
-        if (initialSection && initialSection.subsections.length > 0) {
-          setCurrentSectionContent(initialSection.subsections[0].content);
+        if (initialSection) {
+          const allSubsectionsContent = initialSection.subsections
+            .map((sub) => sub.content)
+            .join('\n\n---\n\n'); // Join with a separator
+          setCurrentSectionContent(allSubsectionsContent || "No content available for this section.");
         } else {
           setCurrentSectionContent("No content available for this section.");
-        }
-
-        const savedBookmarks = JSON.parse(localStorage.getItem(`bookmarks-${courseId}`) || "[]");
+        } const savedBookmarks = JSON.parse(localStorage.getItem(`bookmarks-${courseId}`) || "[]");
         const savedNotes = JSON.parse(localStorage.getItem(`notes-${courseId}`) || "{}");
         setBookmarks(savedBookmarks);
         setNotes(savedNotes);
