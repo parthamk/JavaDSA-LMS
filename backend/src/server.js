@@ -67,8 +67,10 @@ app.use("/api/code", codeRoutes);
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, async () => {
-  console.log(`Backend running on port ${PORT}`);
+const HOST = process.env.HOST || "0.0.0.0";
+
+app.listen(PORT, HOST, async () => {
+  console.log(`Backend running on ${HOST}:${PORT}`);
   // Test Supabase connection
   await testConnection();
 });
