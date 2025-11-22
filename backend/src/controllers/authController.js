@@ -22,6 +22,13 @@ export const register = async (req, res, next) => {
     if (!isValidPassword(password))
       return res.status(400).json({ message: "Invalid password" });
 
+    // Check if Supabase is configured
+    if (!supabase) {
+      return res.status(503).json({ 
+        message: "Database service is not available. Please configure Supabase credentials." 
+      });
+    }
+
     // Check if user already exists
     const { data: existingUser } = await supabase
       .from("users")
@@ -70,6 +77,13 @@ export const login = async (req, res, next) => {
     const { email, password } = req.body;
     if (!email || !password)
       return res.status(400).json({ message: "Missing credentials" });
+
+    // Check if Supabase is configured
+    if (!supabase) {
+      return res.status(503).json({ 
+        message: "Database service is not available. Please configure Supabase credentials." 
+      });
+    }
 
     const { data: user, error } = await supabase
       .from("users")
