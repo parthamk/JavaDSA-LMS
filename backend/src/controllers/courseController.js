@@ -108,7 +108,10 @@ export const getCoursesByLanguage = async (req, res, next) => {
         const file = path.join(COURSES_DIR, `${courseId}.json`);
         const courseData = await readJSON(file);
 
-        if ((courseData.language || "unknown").toLowerCase() === lang.toLowerCase()) {
+        if (
+          (courseData.language || "unknown").toLowerCase() ===
+          lang.toLowerCase()
+        ) {
           courses.push({
             id: courseData.id,
             title: courseData.title,
@@ -129,7 +132,9 @@ export const getCoursesByLanguage = async (req, res, next) => {
     }
 
     if (courses.length === 0) {
-      return res.status(404).json({ message: `No courses found for language: ${lang}` });
+      return res
+        .status(404)
+        .json({ message: `No courses found for language: ${lang}` });
     }
 
     res.json(courses);
@@ -193,7 +198,8 @@ export const getCourseContent = async (req, res, next) => {
 
 export const getSectionContent = async (req, res, next) => {
   try {
-    const { courseId, sectionId } = req.params;
+    const { courseId, sectionId: sectionIdParam } = req.params;
+    const sectionId = String(sectionIdParam); // Ensure sectionId is a string for consistent comparison
     const file = path.join(COURSES_DIR, `${courseId}.json`);
     const courseData = await readJSON(file);
 
@@ -201,7 +207,13 @@ export const getSectionContent = async (req, res, next) => {
     let foundContent = null;
     for (const section of courseData.sections) {
       for (const subsection of section.subsections) {
-        if (subsection.id === sectionId) {
+        console.log(
+          `Comparing: ${
+            subsection.id
+          } (type: ${typeof subsection.id}) with ${sectionId} (type: ${typeof sectionId})`
+        );
+        if (String(subsection.id) === sectionId) {
+          // Ensure both are strings for comparison
           foundContent = {
             ...subsection,
             sectionNumber: section.number,
