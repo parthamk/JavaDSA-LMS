@@ -170,20 +170,15 @@ export const getCourseContent = async (req, res, next) => {
       }
 
       // Extract table of contents from sections
-      const toc = courseData.sections.map((section, idx) => ({
-        id: section.id,
-        number: section.number,
-        title: section.title,
-        subsections: section.subsections.map((sub) => ({
-          id: sub.id,
-          title: sub.title,
-        })),
-      }));
-
       res.json({
         id: courseId,
         title: courseData.title,
-        toc,
+        description: courseData.description,
+        difficulty: courseData.difficulty,
+        duration: courseData.duration,
+        language: courseData.language,
+        languageLabel: courseData.languageLabel,
+        sections: courseData.sections,
         progress: userProgress,
       });
     } catch (err) {

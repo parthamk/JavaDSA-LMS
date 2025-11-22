@@ -390,88 +390,94 @@ const markdownComponents = {
 }
 
 const CourseViewer = () => {
-  const { courseId, sectionId } = useParams()
-  const navigate = useNavigate()
-  const [course, setCourse] = useState(null)
-  const [currentSectionIndex, setCurrentSectionIndex] = useState(0)
-  const [bookmarks, setBookmarks] = useState([])
-  const [notes, setNotes] = useState({})
-  const [showNotes, setShowNotes] = useState(false)
-  const [currentNote, setCurrentNote] = useState('')
+  const { courseId } = useParams();
+  const navigate = useNavigate();
+  const [course, setCourse] = useState(null);
+  const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
+  const [currentSectionContent, setCurrentSectionContent] = useState('');
+  const [bookmarks, setBookmarks] = useState([]);
+  const [notes, setNotes] = useState({});
+  const [showNotes, setShowNotes] = useState(false);
+  const [currentNote, setCurrentNote] = useState('');
 
   useEffect(() => {
     const fetchCourseData = async () => {
       try {
-        const courseData = await getCourseContent(courseId)
-        setCourse(courseData)
-        // Set initial section based on URL or first section
-        const initialSectionIndex = courseData.toc.findIndex(
-          (section) => section.id === (sectionId || courseData.toc[0]?.id)
-        )
-        setCurrentSectionIndex(Math.max(0, initialSectionIndex))
+        const courseData = await getCourseContent(courseId);
+        setCourse(courseData);
 
-        // Fetch and set initial content for the current section
-        const initialSectionId = courseData.toc[Math.max(0, initialSectionIndex)]?.id
-        if (initialSectionId) {
-          const sectionContent = await getSectionContent(courseId, initialSectionId)
-          setCourse((prevCourse) => ({
-            ...prevCourse,
-            sections: prevCourse.sections.map((sec, idx) =>
-              idx === Math.max(0, initialSectionIndex)
-                ? { ...sec, content: sectionContent.content }
-                : sec
-            ),
-          }))
+        // Determine initial section index (default to first section)
+        const initialSectionIndex = 0;
+        setCurrentSectionIndex(initialSectionIndex);
+
+        // Set initial section content
+        const initialSection = courseData.sections[initialSectionIndex];
+        if (initialSection && initialSection.subsections.length > 0) {
+          setCurrentSectionContent(initialSection.subsections[0].content);
+        } else {
+          setCurrentSectionContent("No content available for this section.");
         }
 
-        const savedBookmarks = JSON.parse(localStorage.getItem(`bookmarks-${courseId}`) || '[]')
-        const savedNotes = JSON.parse(localStorage.getItem(`notes-${courseId}`) || '{}')
-        setBookmarks(savedBookmarks)
-        setNotes(savedNotes)
+        const savedBookmarks = JSON.parse(localStorage.getItem(`bookmarks-${courseId}`) || "[]");
+        const savedNotes = JSON.parse(localStorage.getItem(`notes-${courseId}`) || "{}");
+        setBookmarks(savedBookmarks);
+        setNotes(savedNotes);
       } catch (error) {
-        console.error('Error fetching course content:', error)
-        navigate('/courses')
+        console.error("Error fetching course content:", error);
+        navigate("/courses");
+      }
+    };
+    fetchCourseData();
+  }, [courseId, navigate]);
+
+  // Update current section content when currentSectionIndex changes
+  useEffect(() => {
+    if (course && course.sections[currentSectionIndex]) {
+      const section = course.sections[currentSectionIndex];
+      if (section.subsections.length > 0) {
+        setCurrentSectionContent(section.subsections[0].content);
+      } else {
+        setCurrentSectionContent("No content available for this section.");
       }
     }
-    fetchCourseData()
-  }, [courseId, navigate])
+  }, [currentSectionIndex, course]);
 
-  if (!course) return <div className="text-center py-5">Loading...</div>
+  if (!course) return <div className="text-center py-5">Loading...</div>;
 
-  const currentSection = course.sections[currentSectionIndex]
+  const currentSection = course.sections[currentSectionIndex];
 
   const toggleBookmark = () => {
-    const sectionId = currentSection.id
+    const sectionId = currentSection.id;
     if (bookmarks.includes(sectionId)) {
-      setBookmarks(bookmarks.filter((id) => id !== sectionId))
+      setBookmarks(bookmarks.filter((id) => id !== sectionId));
     } else {
-      setBookmarks([...bookmarks, sectionId])
+      setBookmarks([...bookmarks, sectionId]);
     }
-    localStorage.setItem(`bookmarks-${courseId}`, JSON.stringify(bookmarks))
-  }
+    localStorage.setItem(`bookmarks-${courseId}`, JSON.stringify(bookmarks));
+  };
 
   const saveNote = () => {
-    const sectionId = currentSection.id
-    const updatedNotes = { ...notes, [sectionId]: currentNote }
-    setNotes(updatedNotes)
-    localStorage.setItem(`notes-${courseId}`, JSON.stringify(updatedNotes))
-  }
+    const sectionId = currentSection.id;
+    const updatedNotes = { ...notes, [sectionId]: currentNote };
+    setNotes(updatedNotes);
+    localStorage.setItem(`notes-${courseId}`, JSON.stringify(updatedNotes));
+  };
 
   const handleNext = () => {
     if (currentSectionIndex < course.sections.length - 1) {
-      setCurrentSectionIndex(currentSectionIndex + 1)
-      setShowNotes(false)
+      setCurrentSectionIndex(currentSectionIndex + 1);
+      setShowNotes(false);
     }
-  }
+  };
 
   const handlePrevious = () => {
     if (currentSectionIndex > 0) {
-      setCurrentSectionIndex(currentSectionIndex - 1)
-      setShowNotes(false)
+      setCurrentSectionIndex(currentSectionIndex - 1);
+      setShowNotes(false);
     }
-  }
+  };
 
-  const progress = ((currentSectionIndex + 1) / course.sections.length) * 100
+  const progress = ((currentSectionIndex + 1) / course.sections.length) * 100;
 
   return (
     <div className="d-flex" style={{ minHeight: 'calc(100vh - 80px)', backgroundColor: '#f9fafb' }}>
@@ -550,7 +556,7 @@ const CourseViewer = () => {
           <div className="bg-white p-4 rounded mb-4 shadow-sm">
             <div style={{ lineHeight: '1.8' }}>
               <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
-                {currentSection.content}
+                {currentSectionContent}
               </ReactMarkdown>
             </div>
           </div>
@@ -596,7 +602,7 @@ const CourseViewer = () => {
         </Container>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default CourseViewer
+export default CourseViewer;
