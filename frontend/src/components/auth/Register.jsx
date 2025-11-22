@@ -61,8 +61,27 @@ const Register = () => {
       toast.success('Registration successful!')
       navigate('/')
     } catch (error) {
-      const message = error.response?.data?.message || 'Registration failed'
-      toast.error(message)
+      // Log full error to console for debugging
+      console.error('Registration error:', error)
+      
+      // Show user-friendly message
+      const statusCode = error.response?.status
+      const serverMessage = error.response?.data?.message
+      let userMessage = 'Registration failed. Please try again.'
+      
+      if (statusCode === 400) {
+        if (serverMessage?.includes('already exists')) {
+          userMessage = 'This email or username is already registered'
+        } else if (serverMessage?.includes('Invalid')) {
+          userMessage = 'Please check your input and try again'
+        } else {
+          userMessage = 'Please check your input and try again'
+        }
+      } else if (statusCode === 503) {
+        userMessage = 'Service temporarily unavailable. Please try again later.'
+      }
+      
+      toast.error(userMessage)
     } finally {
       setLoading(false)
     }

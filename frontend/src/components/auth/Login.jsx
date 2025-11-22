@@ -44,8 +44,22 @@ const Login = () => {
       toast.success('Login successful!')
       navigate('/')
     } catch (error) {
-      const message = error.response?.data?.message || 'Login failed'
-      toast.error(message)
+      // Log full error to console for debugging
+      console.error('Login error:', error)
+      
+      // Show user-friendly message
+      const statusCode = error.response?.status
+      let userMessage = 'Login failed. Please try again.'
+      
+      if (statusCode === 401) {
+        userMessage = 'Invalid email or password'
+      } else if (statusCode === 400) {
+        userMessage = 'Please check your input and try again'
+      } else if (statusCode === 503) {
+        userMessage = 'Service temporarily unavailable. Please try again later.'
+      }
+      
+      toast.error(userMessage)
     } finally {
       setLoading(false)
     }
