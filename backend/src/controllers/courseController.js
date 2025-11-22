@@ -16,7 +16,7 @@ const PROGRESS_FILE = path.join(__dirname, "../data/progress.json");
 
 export const getCourseList = async (req, res, next) => {
   try {
-    const courseIds = ["java", "dsa"];
+    const courseIds = ["java", "dsa", "javascript", "js-dsa"];
     const courses = [];
 
     for (const courseId of courseIds) {
@@ -29,6 +29,8 @@ export const getCourseList = async (req, res, next) => {
           description: courseData.description,
           difficulty: courseData.difficulty,
           duration: courseData.duration,
+          language: courseData.language || "unknown",
+          languageLabel: courseData.languageLabel || "Unknown",
           totalSections: courseData.sections.length,
           estimatedHours: courseData.duration
             ? parseInt(courseData.duration)
@@ -38,6 +40,96 @@ export const getCourseList = async (req, res, next) => {
       } catch (err) {
         console.error(`Failed to load course ${courseId}:`, err);
       }
+    }
+
+    res.json(courses);
+  } catch (err) {
+    next(err);
+  }
+};
+
+// Get courses grouped by programming language
+export const getGroupedCourses = async (req, res, next) => {
+  try {
+    const courseIds = ["java", "dsa", "javascript", "js-dsa"];
+    const grouped = {};
+
+    for (const courseId of courseIds) {
+      try {
+        const file = path.join(COURSES_DIR, `${courseId}.json`);
+        const courseData = await readJSON(file);
+        const language = courseData.language || "unknown";
+        const languageLabel = courseData.languageLabel || "Unknown";
+
+        if (!grouped[language]) {
+          grouped[language] = {
+            language,
+            languageLabel,
+            courses: [],
+          };
+        }
+
+        grouped[language].courses.push({
+          id: courseData.id,
+          title: courseData.title,
+          description: courseData.description,
+          difficulty: courseData.difficulty,
+          duration: courseData.duration,
+          totalSections: courseData.sections.length,
+          estimatedHours: courseData.duration
+            ? parseInt(courseData.duration)
+            : 0,
+        });
+      } catch (err) {
+        console.error(`Failed to load course ${courseId}:`, err);
+      }
+    }
+
+    // Convert to array and sort by language
+    const result = Object.values(grouped).sort((a, b) =>
+      a.language.localeCompare(b.language)
+    );
+
+    res.json(result);
+  } catch (err) {
+    next(err);
+  }
+};
+
+// Get courses filtered by language
+export const getCoursesByLanguage = async (req, res, next) => {
+  try {
+    const { lang } = req.params;
+    const courseIds = ["java", "dsa", "javascript", "js-dsa"];
+    const courses = [];
+
+    for (const courseId of courseIds) {
+      try {
+        const file = path.join(COURSES_DIR, `${courseId}.json`);
+        const courseData = await readJSON(file);
+
+        if ((courseData.language || "unknown").toLowerCase() === lang.toLowerCase()) {
+          courses.push({
+            id: courseData.id,
+            title: courseData.title,
+            description: courseData.description,
+            difficulty: courseData.difficulty,
+            duration: courseData.duration,
+            language: courseData.language || "unknown",
+            languageLabel: courseData.languageLabel || "Unknown",
+            totalSections: courseData.sections.length,
+            estimatedHours: courseData.duration
+              ? parseInt(courseData.duration)
+              : 0,
+          });
+        }
+      } catch (err) {
+        console.error(`Failed to load course ${courseId}:`, err);
+      }
+    }
+
+    if (courses.length === 0) {
+      return res.status(404).json({ message: `No courses found for language: ${lang}` });
     }
 
     res.json(courses);

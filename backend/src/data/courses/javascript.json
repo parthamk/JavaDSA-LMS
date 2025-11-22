@@ -1,0 +1,241 @@
+{
+  "id": "javascript",
+  "title": "Complete JavaScript Guide",
+  "description": "Master JavaScript from basics to advanced level with ES6+, async programming, and modern frameworks.",
+  "difficulty": "Basic to Advanced",
+  "duration": "40+ hours",
+  "language": "javascript",
+  "languageLabel": "JavaScript",
+  "sections": [
+    {
+      "id": "1",
+      "number": "1.1",
+      "title": "Introduction to JavaScript",
+      "subsections": [
+        {
+          "id": "1-1",
+          "title": "What is JavaScript?",
+          "type": "content",
+          "content": "JavaScript is a versatile, lightweight, interpreted programming language designed to run in web browsers and servers.\n\n**Key Characteristics:**\n- **Dynamic Typing**: Variables can hold any data type\n- **Event-Driven**: Responds to user interactions\n- **Functional**: First-class functions and closures\n- **Prototype-Based**: Object inheritance through prototypes\n- **Asynchronous**: Supports callbacks, promises, async/await\n- **Ubiquitous**: Runs everywhere - browsers, servers (Node.js), mobile",
+          "keyPoints": [
+            {
+              "label": "Client-Side",
+              "description": "Runs in web browsers for interactivity"
+            },
+            {
+              "label": "Server-Side",
+              "description": "Node.js enables backend development"
+            },
+            {
+              "label": "Flexible",
+              "description": "Dynamic typing and functional programming"
+            },
+            {
+              "label": "Event-Driven",
+              "description": "Perfect for interactive web applications"
+            }
+          ]
+        },
+        {
+          "id": "1-2",
+          "title": "JavaScript Execution",
+          "type": "diagram",
+          "content": "Source Code (.js) → JavaScript Engine → Parsing → Compilation → Execution → Output\n\nModern JS Engines (V8, SpiderMonkey) use JIT compilation for performance"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "number": "1.2",
+      "title": "Variables & Data Types",
+      "subsections": [
+        {
+          "id": "2-1",
+          "title": "Variable Declaration",
+          "type": "code",
+          "language": "javascript",
+          "code": "// var (function-scoped, avoid in modern JS)\nvar name = 'John';\n\n// let (block-scoped, preferred)\nlet age = 25;\n\n// const (block-scoped, immutable reference)\nconst PI = 3.14159;\n\n// Reassignment\nage = 26;           // OK\nPI = 3.14;          // ERROR - const cannot be reassigned\n\n// Hoisting\nconsole.log(x);     // undefined (hoisted but not initialized)\nvar x = 5;",
+          "explanation": "Use const by default, let when reassignment needed, avoid var in modern JavaScript"
+        },
+        {
+          "id": "2-2",
+          "title": "Primitive Data Types",
+          "type": "table",
+          "data": [
+            {
+              "Type": "string",
+              "Example": "\"Hello\", 'World', `Template`",
+              "Description": "Text data"
+            },
+            {
+              "Type": "number",
+              "Example": "42, 3.14, -5, Infinity",
+              "Description": "Integer and floating-point"
+            },
+            {
+              "Type": "boolean",
+              "Example": "true, false",
+              "Description": "Logical values"
+            },
+            {
+              "Type": "null",
+              "Example": "null",
+              "Description": "Intentional absence of value"
+            },
+            {
+              "Type": "undefined",
+              "Example": "undefined",
+              "Description": "Uninitialized variable"
+            },
+            {
+              "Type": "symbol",
+              "Example": "Symbol('id')",
+              "Description": "Unique identifier (ES6+)"
+            },
+            {
+              "Type": "bigint",
+              "Example": "123n, BigInt('456')",
+              "Description": "Large integers (ES2020+)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "number": "1.3",
+      "title": "Operators & Expressions",
+      "subsections": [
+        {
+          "id": "3-1",
+          "title": "Arithmetic Operators",
+          "type": "code",
+          "language": "javascript",
+          "code": "const a = 10, b = 3;\n\nconsole.log(a + b);      // 13 (Addition)\nconsole.log(a - b);      // 7 (Subtraction)\nconsole.log(a * b);      // 30 (Multiplication)\nconsole.log(a / b);      // 3.333... (Division)\nconsole.log(a % b);      // 1 (Modulo)\nconsole.log(a ** b);     // 1000 (Exponentiation)\n\n// Increment/Decrement\nlet x = 5;\nx++;                     // 6 (post-increment)\n++x;                     // 7 (pre-increment)\nx--;                     // 6 (post-decrement)\n--x;                     // 5 (pre-decrement)",
+          "explanation": "JavaScript automatically converts types in arithmetic operations (type coercion)"
+        },
+        {
+          "id": "3-2",
+          "title": "Comparison & Logical Operators",
+          "type": "code",
+          "language": "javascript",
+          "code": "// Comparison\nconsole.log(5 == '5');      // true (loose equality, type coercion)\nconsole.log(5 === '5');     // false (strict equality, no coercion)\nconsole.log(5 != '5');      // false\nconsole.log(5 !== '5');     // true\nconsole.log(5 > 3);         // true\nconsole.log(5 <= 5);        // true\n\n// Logical\nconsole.log(true && false);  // false (AND)\nconsole.log(true || false);  // true (OR)\nconsole.log(!true);          // false (NOT)\n\n// Nullish Coalescing & Optional Chaining\nconst user = null;\nconsole.log(user ?? 'Guest');  // 'Guest' (null/undefined)\nconsole.log(user?.name);       // undefined (safe access)",
+          "explanation": "Always use === for comparison to avoid unexpected type coercion"
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "number": "1.4",
+      "title": "Control Flow",
+      "subsections": [
+        {
+          "id": "4-1",
+          "title": "if-else & switch",
+          "type": "code",
+          "language": "javascript",
+          "code": "// if-else\nconst age = 18;\nif (age >= 18) {\n    console.log('Adult');\n} else {\n    console.log('Minor');\n}\n\n// switch\nconst day = 3;\nswitch (day) {\n    case 1:\n        console.log('Monday');\n        break;\n    case 3:\n        console.log('Wednesday');\n        break;\n    default:\n        console.log('Other day');\n}\n\n// Ternary operator\nconst status = age >= 18 ? 'Adult' : 'Minor';",
+          "explanation": "Use switch for multiple conditions on same value, ternary for simple if-else"
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "number": "1.5",
+      "title": "Loops",
+      "subsections": [
+        {
+          "id": "5-1",
+          "title": "Loop Types",
+          "type": "code",
+          "language": "javascript",
+          "code": "// for loop\nfor (let i = 0; i < 5; i++) {\n    console.log(i);  // 0 1 2 3 4\n}\n\n// while loop\nlet count = 0;\nwhile (count < 5) {\n    console.log(count);\n    count++;\n}\n\n// do-while loop\nlet x = 0;\ndo {\n    console.log(x);\n    x++;\n} while (x < 5);\n\n// for-of loop (iterate values)\nconst arr = [10, 20, 30];\nfor (const value of arr) {\n    console.log(value);\n}\n\n// for-in loop (iterate keys)\nconst obj = {a: 1, b: 2};\nfor (const key in obj) {\n    console.log(key, obj[key]);\n}",
+          "explanation": "for-of for arrays/iterables, for-in for object keys, avoid for-in with arrays"
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "number": "1.6",
+      "title": "Functions",
+      "subsections": [
+        {
+          "id": "6-1",
+          "title": "Function Declaration & Arrow Functions",
+          "type": "code",
+          "language": "javascript",
+          "code": "// Function declaration\nfunction add(a, b) {\n    return a + b;\n}\n\n// Function expression\nconst multiply = function(a, b) {\n    return a * b;\n};\n\n// Arrow function (ES6+)\nconst subtract = (a, b) => a - b;\n\n// Arrow function with multiple statements\nconst divide = (a, b) => {\n    if (b === 0) return 'Cannot divide by zero';\n    return a / b;\n};\n\n// Default parameters\nconst greet = (name = 'Guest') => `Hello, ${name}`;\n\n// Rest parameters\nconst sum = (...numbers) => numbers.reduce((a, b) => a + b, 0);\nsum(1, 2, 3, 4);  // 10",
+          "explanation": "Arrow functions don't have their own 'this' context - useful for callbacks"
+        }
+      ]
+    },
+    {
+      "id": "7",
+      "number": "2.1",
+      "title": "Objects & Arrays",
+      "subsections": [
+        {
+          "id": "7-1",
+          "title": "Object Fundamentals",
+          "type": "code",
+          "language": "javascript",
+          "code": "// Object literal\nconst person = {\n    name: 'Alice',\n    age: 30,\n    email: 'alice@example.com',\n    greet() {\n        return `Hello, I'm ${this.name}`;\n    }\n};\n\n// Accessing properties\nconsole.log(person.name);           // 'Alice'\nconsole.log(person['age']);         // 30\n\n// Modifying properties\nperson.age = 31;\nperson.city = 'NYC';                // Add new property\n\n// Destructuring\nconst {name, age} = person;\nconsole.log(name);                  // 'Alice'\n\n// Spread operator\nconst newPerson = {...person, age: 25};",
+          "explanation": "Objects are key-value pairs; use destructuring for cleaner code"
+        },
+        {
+          "id": "7-2",
+          "title": "Array Methods",
+          "type": "code",
+          "language": "javascript",
+          "code": "const arr = [1, 2, 3, 4, 5];\n\n// map - transform elements\nconst squared = arr.map(x => x * x);  // [1, 4, 9, 16, 25]\n\n// filter - keep matching elements\nconst evens = arr.filter(x => x % 2 === 0);  // [2, 4]\n\n// reduce - aggregate to single value\nconst sum = arr.reduce((acc, x) => acc + x, 0);  // 15\n\n// forEach - iterate\narr.forEach(x => console.log(x));\n\n// find - get first match\nconst first = arr.find(x => x > 3);  // 4\n\n// includes - check existence\nconsole.log(arr.includes(3));  // true\n\n// push/pop/shift/unshift\narr.push(6);                   // Add to end\narr.pop();                     // Remove from end\narr.unshift(0);                // Add to start\narr.shift();                   // Remove from start",
+          "explanation": "Array methods are essential for functional programming in JavaScript"
+        }
+      ]
+    },
+    {
+      "id": "8",
+      "number": "2.2",
+      "title": "Asynchronous JavaScript",
+      "subsections": [
+        {
+          "id": "8-1",
+          "title": "Callbacks, Promises & Async/Await",
+          "type": "code",
+          "language": "javascript",
+          "code": "// Callback (older approach)\nfunction fetchData(callback) {\n    setTimeout(() => {\n        callback('Data loaded');\n    }, 1000);\n}\nfetchData(data => console.log(data));\n\n// Promise\nconst promise = new Promise((resolve, reject) => {\n    setTimeout(() => resolve('Success'), 1000);\n});\npromise.then(data => console.log(data));\n\n// Async/Await (modern, cleaner)\nasync function loadData() {\n    try {\n        const response = await fetch('/api/data');\n        const data = await response.json();\n        console.log(data);\n    } catch (error) {\n        console.error('Error:', error);\n    }\n}\n\n// Promise.all - wait for multiple\nconst results = await Promise.all([\n    fetch('/api/users'),\n    fetch('/api/posts')\n]);",
+          "explanation": "Async/await is the modern way to handle asynchronous operations - cleaner than callbacks"
+        }
+      ]
+    },
+    {
+      "id": "9",
+      "number": "2.3",
+      "title": "ES6+ Features",
+      "subsections": [
+        {
+          "id": "9-1",
+          "title": "Template Literals & Destructuring",
+          "type": "code",
+          "language": "javascript",
+          "code": "// Template literals (backticks)\nconst name = 'World';\nconst greeting = `Hello, ${name}!`;\nconst multiline = `Line 1\nLine 2\nLine 3`;\n\n// Array destructuring\nconst [first, second, ...rest] = [1, 2, 3, 4, 5];\nconsole.log(first);   // 1\nconsole.log(rest);    // [3, 4, 5]\n\n// Object destructuring\nconst {name: personName, age} = {name: 'Alice', age: 30};\n\n// Rename in destructuring\nconst {name: n} = {name: 'Bob'};\n\n// Default values\nconst {city = 'NYC'} = {};  // city = 'NYC'",
+          "explanation": "Template literals and destructuring make code more readable and concise"
+        }
+      ]
+    },
+    {
+      "id": "10",
+      "number": "3.1",
+      "title": "DOM Manipulation",
+      "subsections": [
+        {
+          "id": "10-1",
+          "title": "Selecting & Modifying Elements",
+          "type": "code",
+          "language": "javascript",
+          "code": "// Select elements\nconst element = document.getElementById('myId');\nconst elements = document.querySelectorAll('.myClass');\nconst first = document.querySelector('div > p');\n\n// Modify content\nelement.textContent = 'New text';\nelement.innerHTML = '<strong>Bold text</strong>';\n\n// Modify attributes\nelement.setAttribute('data-id', '123');\nelement.classList.add('active');\nelement.classList.remove('hidden');\nelement.classList.toggle('visible');\n\n// Modify styles\nelement.style.color = 'red';\nelement.style.backgroundColor = 'blue';\n\n// Create & append elements\nconst newDiv = document.createElement('div');\nnewDiv.textContent = 'New element';\ndocument.body.appendChild(newDiv);\n\n// Event listeners\nelement.addEventListener('click', () => {\n    console.log('Clicked!');\n});\n\nelement.addEventListener('change', (event) => {\n    console.log(event.target.value);\n});",
+          "explanation": "DOM manipulation is fundamental for interactive web applications"
+        }
+      ]
+    }
+  ]
+}

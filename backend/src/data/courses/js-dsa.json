@@ -1,0 +1,439 @@
+{
+  "id": "js-dsa",
+  "title": "Data Structures & Algorithms with JavaScript",
+  "description": "Master essential data structures and algorithms using JavaScript with practical examples and interview preparation.",
+  "difficulty": "Intermediate to Advanced",
+  "duration": "45+ hours",
+  "language": "javascript",
+  "languageLabel": "JavaScript",
+  "sections": [
+    {
+      "id": "1",
+      "number": "1.1",
+      "title": "Introduction to DSA",
+      "subsections": [
+        {
+          "id": "1-1",
+          "title": "What is DSA?",
+          "type": "content",
+          "content": "Data Structures and Algorithms (DSA) are fundamental concepts for solving computational problems efficiently.\n\n**Why DSA Matters:**\n- Solve problems optimally\n- Write efficient code\n- Ace technical interviews\n- Build scalable systems",
+          "keyPoints": [
+            {
+              "label": "Data Structures",
+              "description": "Ways to organize and store data efficiently"
+            },
+            {
+              "label": "Algorithms",
+              "description": "Step-by-step procedures to solve problems"
+            },
+            {
+              "label": "Time Complexity",
+              "description": "How execution time grows with input size"
+            },
+            {
+              "label": "Space Complexity",
+              "description": "How memory usage grows with input size"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "number": "1.2",
+      "title": "Arrays and Lists",
+      "subsections": [
+        {
+          "id": "2-1",
+          "title": "Array Operations",
+          "type": "table",
+          "data": [
+            {
+              "Operation": "Access",
+              "Time": "O(1)",
+              "Description": "Direct index access"
+            },
+            {
+              "Operation": "Search",
+              "Time": "O(n)",
+              "Description": "Linear search"
+            },
+            {
+              "Operation": "Insert",
+              "Time": "O(n)",
+              "Description": "May require shifting"
+            },
+            {
+              "Operation": "Delete",
+              "Time": "O(n)",
+              "Description": "May require shifting"
+            }
+          ]
+        },
+        {
+          "id": "2-2",
+          "title": "Finding Maximum Element",
+          "type": "code",
+          "language": "javascript",
+          "code": "function findMax(arr) {\n    let max = arr[0];\n    for (let i = 1; i < arr.length; i++) {\n        if (arr[i] > max) {\n            max = arr[i];\n        }\n    }\n    return max;\n}\n\n// Using reduce (functional approach)\nconst findMaxFunctional = (arr) => arr.reduce((max, num) => num > max ? num : max);\n\nconst numbers = [5, 2, 8, 1, 9];\nconsole.log(findMax(numbers));  // 9",
+          "explanation": "Time Complexity: O(n) - Single pass through array. Space Complexity: O(1)"
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "number": "1.3",
+      "title": "Linked Lists",
+      "subsections": [
+        {
+          "id": "3-1",
+          "title": "Node Class",
+          "type": "code",
+          "language": "javascript",
+          "code": "class Node {\n    constructor(data) {\n        this.data = data;\n        this.next = null;\n    }\n}\n\nclass LinkedList {\n    constructor() {\n        this.head = null;\n    }\n    \n    insert(data) {\n        const newNode = new Node(data);\n        if (!this.head) {\n            this.head = newNode;\n            return;\n        }\n        let current = this.head;\n        while (current.next) {\n            current = current.next;\n        }\n        current.next = newNode;\n    }\n    \n    display() {\n        let current = this.head;\n        let result = '';\n        while (current) {\n            result += current.data + ' -> ';\n            current = current.next;\n        }\n        console.log(result + 'null');\n    }\n}"
+        },
+        {
+          "id": "3-2",
+          "title": "LinkedList Operations",
+          "type": "table",
+          "data": [
+            {
+              "Operation": "Access",
+              "Time": "O(n)",
+              "Description": "Need to traverse from head"
+            },
+            {
+              "Operation": "Search",
+              "Time": "O(n)",
+              "Description": "Linear search through nodes"
+            },
+            {
+              "Operation": "Insert at Head",
+              "Time": "O(1)",
+              "Description": "Constant time operation"
+            },
+            {
+              "Operation": "Delete at Head",
+              "Time": "O(1)",
+              "Description": "Constant time operation"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "number": "2.1",
+      "title": "Stacks",
+      "subsections": [
+        {
+          "id": "4-1",
+          "title": "Stack Basics (LIFO)",
+          "type": "content",
+          "content": "Stack follows Last-In-First-Out (LIFO) principle. Last element added is first to be removed.\n\n**Real-World Examples:**\n- Browser back button (undo stack)\n- Function call stack\n- Expression evaluation\n- Depth-first search",
+          "keyPoints": [
+            {
+              "label": "Push",
+              "description": "Add element to top - O(1)"
+            },
+            {
+              "label": "Pop",
+              "description": "Remove from top - O(1)"
+            },
+            {
+              "label": "Peek",
+              "description": "View top element - O(1)"
+            },
+            {
+              "label": "isEmpty",
+              "description": "Check if stack is empty - O(1)"
+            }
+          ]
+        },
+        {
+          "id": "4-2",
+          "title": "Stack Implementation",
+          "type": "code",
+          "language": "javascript",
+          "code": "class Stack {\n    constructor() {\n        this.items = [];\n    }\n    \n    push(element) {\n        this.items.push(element);\n    }\n    \n    pop() {\n        return this.items.pop();\n    }\n    \n    peek() {\n        return this.items[this.items.length - 1];\n    }\n    \n    isEmpty() {\n        return this.items.length === 0;\n    }\n    \n    size() {\n        return this.items.length;\n    }\n}\n\n// Usage\nconst stack = new Stack();\nstack.push(10);\nstack.push(20);\nstack.push(30);\nconsole.log(stack.pop());   // 30\nconsole.log(stack.peek());  // 20"
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "number": "2.2",
+      "title": "Queues",
+      "subsections": [
+        {
+          "id": "5-1",
+          "title": "Queue Basics (FIFO)",
+          "type": "content",
+          "content": "Queue follows First-In-First-Out (FIFO) principle. First element added is first to be removed.\n\n**Real-World Examples:**\n- Print queue\n- Customer service queue\n- Task scheduling\n- Breadth-first search",
+          "keyPoints": [
+            {
+              "label": "Enqueue",
+              "description": "Add element to rear - O(1)"
+            },
+            {
+              "label": "Dequeue",
+              "description": "Remove from front - O(1)"
+            },
+            {
+              "label": "Front",
+              "description": "View front element - O(1)"
+            },
+            {
+              "label": "isEmpty",
+              "description": "Check if queue is empty - O(1)"
+            }
+          ]
+        },
+        {
+          "id": "5-2",
+          "title": "Queue Implementation",
+          "type": "code",
+          "language": "javascript",
+          "code": "class Queue {\n    constructor() {\n        this.items = [];\n    }\n    \n    enqueue(element) {\n        this.items.push(element);\n    }\n    \n    dequeue() {\n        return this.items.shift();\n    }\n    \n    front() {\n        return this.items[0];\n    }\n    \n    isEmpty() {\n        return this.items.length === 0;\n    }\n    \n    size() {\n        return this.items.length;\n    }\n}\n\n// Usage\nconst queue = new Queue();\nqueue.enqueue(10);\nqueue.enqueue(20);\nqueue.enqueue(30);\nconsole.log(queue.dequeue());  // 10\nconsole.log(queue.front());    // 20"
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "number": "3.1",
+      "title": "Sorting Algorithms",
+      "subsections": [
+        {
+          "id": "6-1",
+          "title": "Bubble Sort",
+          "type": "code",
+          "language": "javascript",
+          "code": "function bubbleSort(arr) {\n    const n = arr.length;\n    for (let i = 0; i < n - 1; i++) {\n        for (let j = 0; j < n - i - 1; j++) {\n            if (arr[j] > arr[j + 1]) {\n                // Swap\n                [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];\n            }\n        }\n    }\n    return arr;\n}\n\nconsole.log(bubbleSort([64, 34, 25, 12, 22, 11, 90]));\n// Output: [11, 12, 22, 25, 34, 64, 90]",
+          "explanation": "Time: O(n²) | Space: O(1) | Simple but inefficient for large datasets"
+        },
+        {
+          "id": "6-2",
+          "title": "Quick Sort",
+          "type": "code",
+          "language": "javascript",
+          "code": "function quickSort(arr) {\n    if (arr.length <= 1) return arr;\n    \n    const pivot = arr[Math.floor(arr.length / 2)];\n    const left = arr.filter(x => x < pivot);\n    const middle = arr.filter(x => x === pivot);\n    const right = arr.filter(x => x > pivot);\n    \n    return [...quickSort(left), ...middle, ...quickSort(right)];\n}\n\nconsole.log(quickSort([64, 34, 25, 12, 22, 11, 90]));\n// Output: [11, 12, 22, 25, 34, 64, 90]",
+          "explanation": "Time: O(n log n) average | Space: O(log n) | Much faster for large datasets"
+        }
+      ]
+    },
+    {
+      "id": "7",
+      "number": "3.2",
+      "title": "Searching Algorithms",
+      "subsections": [
+        {
+          "id": "7-1",
+          "title": "Linear & Binary Search",
+          "type": "code",
+          "language": "javascript",
+          "code": "// Linear Search - O(n)\nfunction linearSearch(arr, target) {\n    for (let i = 0; i < arr.length; i++) {\n        if (arr[i] === target) return i;\n    }\n    return -1;\n}\n\n// Binary Search - O(log n) - requires sorted array\nfunction binarySearch(arr, target) {\n    let left = 0, right = arr.length - 1;\n    \n    while (left <= right) {\n        const mid = Math.floor((left + right) / 2);\n        if (arr[mid] === target) return mid;\n        if (arr[mid] < target) left = mid + 1;\n        else right = mid - 1;\n    }\n    return -1;\n}\n\nconst sorted = [11, 12, 22, 25, 34, 64, 90];\nconsole.log(binarySearch(sorted, 25));  // 3",
+          "explanation": "Binary search is much faster (O(log n)) but requires sorted array"
+        }
+      ]
+    },
+    {
+      "id": "8",
+      "number": "4.1",
+      "title": "Hash Maps",
+      "subsections": [
+        {
+          "id": "8-1",
+          "title": "Hash Map Basics",
+          "type": "content",
+          "content": "Hash Maps (Objects/Maps in JavaScript) use hash functions to map keys to values. Provides O(1) average case lookup.",
+          "keyPoints": [
+            {
+              "label": "Hash Function",
+              "description": "Maps keys to storage locations"
+            },
+            {
+              "label": "Key-Value Pairs",
+              "description": "Store and retrieve data by key"
+            },
+            {
+              "label": "Collision Handling",
+              "description": "JavaScript handles internally"
+            },
+            {
+              "label": "Use Cases",
+              "description": "Caching, frequency counting, lookups"
+            }
+          ]
+        },
+        {
+          "id": "8-2",
+          "title": "Map Operations",
+          "type": "code",
+          "language": "javascript",
+          "code": "// Using Object\nconst obj = {};\nobj['apple'] = 5;\nobj['banana'] = 3;\nconsole.log(obj['apple']);  // 5\n\n// Using Map (modern approach)\nconst map = new Map();\nmap.set('apple', 5);\nmap.set('banana', 3);\nconsole.log(map.get('apple'));  // 5\nconsole.log(map.has('banana'));  // true\n\n// Iterate\nfor (const [key, value] of map) {\n    console.log(`${key}: ${value}`);\n}",
+          "explanation": "Time: O(1) average - O(n) worst case. Space: O(n)"
+        }
+      ]
+    },
+    {
+      "id": "9",
+      "number": "4.2",
+      "title": "Binary Search Trees",
+      "subsections": [
+        {
+          "id": "9-1",
+          "title": "BST Properties",
+          "type": "content",
+          "content": "Binary Search Tree: Left subtree < Node < Right subtree. Enables efficient searching and maintains sorted order.",
+          "keyPoints": [
+            {
+              "label": "Search",
+              "description": "O(log n) average, O(n) worst case"
+            },
+            {
+              "label": "Insert",
+              "description": "O(log n) average, O(n) worst case"
+            },
+            {
+              "label": "Delete",
+              "description": "O(log n) average, O(n) worst case"
+            },
+            {
+              "label": "In-Order Traversal",
+              "description": "Produces sorted sequence"
+            }
+          ]
+        },
+        {
+          "id": "9-2",
+          "title": "BST Implementation",
+          "type": "code",
+          "language": "javascript",
+          "code": "class TreeNode {\n    constructor(value) {\n        this.value = value;\n        this.left = null;\n        this.right = null;\n    }\n}\n\nclass BST {\n    constructor() {\n        this.root = null;\n    }\n    \n    insert(value) {\n        const newNode = new TreeNode(value);\n        if (this.root === null) {\n            this.root = newNode;\n            return this;\n        }\n        let current = this.root;\n        while (true) {\n            if (value === current.value) return undefined;\n            if (value < current.value) {\n                if (current.left === null) {\n                    current.left = newNode;\n                    return this;\n                }\n                current = current.left;\n            } else {\n                if (current.right === null) {\n                    current.right = newNode;\n                    return this;\n                }\n                current = current.right;\n            }\n        }\n    }\n    \n    search(value) {\n        let current = this.root;\n        while (current) {\n            if (value === current.value) return true;\n            if (value < current.value) current = current.left;\n            else current = current.right;\n        }\n        return false;\n    }\n}"
+        }
+      ]
+    },
+    {
+      "id": "10",
+      "number": "5.1",
+      "title": "Complexity Analysis",
+      "subsections": [
+        {
+          "id": "10-1",
+          "title": "Big-O Notation",
+          "type": "table",
+          "data": [
+            {
+              "Notation": "O(1)",
+              "Name": "Constant",
+              "Example": "Array access, hash lookup"
+            },
+            {
+              "Notation": "O(log n)",
+              "Name": "Logarithmic",
+              "Example": "Binary search"
+            },
+            {
+              "Notation": "O(n)",
+              "Name": "Linear",
+              "Example": "Linear search, loop"
+            },
+            {
+              "Notation": "O(n log n)",
+              "Name": "Linearithmic",
+              "Example": "Merge sort, quick sort"
+            },
+            {
+              "Notation": "O(n²)",
+              "Name": "Quadratic",
+              "Example": "Bubble sort, nested loops"
+            },
+            {
+              "Notation": "O(2^n)",
+              "Name": "Exponential",
+              "Example": "Recursive fibonacci"
+            }
+          ]
+        },
+        {
+          "id": "10-2",
+          "title": "Analyzing Complexity",
+          "type": "content",
+          "content": "Steps to calculate complexity:\n1. Count operations relative to input size (n)\n2. Identify loops and recursive calls\n3. Find dominant term\n4. Express in Big-O notation\n\nExamples:\n- Single loop: O(n)\n- Nested loops: O(n²)\n- Halving input: O(log n)\n- Divide and conquer: O(n log n)"
+        }
+      ]
+    },
+    {
+      "id": "11",
+      "number": "5.2",
+      "title": "DFS and Advanced Traversal",
+      "subsections": [
+        {
+          "id": "11-1",
+          "title": "Depth-First Search (DFS)",
+          "type": "code",
+          "language": "javascript",
+          "code": "// DFS using recursion\nfunction dfs(graph, node, visited = new Set()) {\n    visited.add(node);\n    console.log(node);\n    \n    for (const neighbor of graph[node]) {\n        if (!visited.has(neighbor)) {\n            dfs(graph, neighbor, visited);\n        }\n    }\n}\n\n// DFS using stack (iterative)\nfunction dfsIterative(graph, start) {\n    const visited = new Set();\n    const stack = [start];\n    \n    while (stack.length > 0) {\n        const node = stack.pop();\n        if (!visited.has(node)) {\n            visited.add(node);\n            console.log(node);\n            stack.push(...graph[node]);\n        }\n    }\n}",
+          "explanation": "Time: O(V+E) - Explores deep first using recursion or stack"
+        }
+      ]
+    },
+    {
+      "id": "12",
+      "number": "6.1",
+      "title": "Problem-Solving Techniques",
+      "subsections": [
+        {
+          "id": "12-1",
+          "title": "Recursion & Backtracking",
+          "type": "content",
+          "content": "**Recursion**: Function calls itself with smaller input\n- Base case: Stops recursion\n- Recursive case: Breaks problem down\n\n**Backtracking**: Build solution incrementally, abandon invalid paths\n- N-queens problem\n- Sudoku solver\n- Permutations and combinations\n- Maze solving"
+        },
+        {
+          "id": "12-2",
+          "title": "Greedy & Divide-and-Conquer",
+          "type": "content",
+          "content": "**Greedy Algorithms**: Make locally optimal choice at each step\n- Activity selection\n- Huffman coding\n- Dijkstra's algorithm\n\n**Divide and Conquer**: Break problem into subproblems\n- Merge sort\n- Quick sort\n- Binary search\n- Combine solutions"
+        }
+      ]
+    },
+    {
+      "id": "13",
+      "number": "6.2",
+      "title": "Dynamic Programming",
+      "subsections": [
+        {
+          "id": "13-1",
+          "title": "Introduction to DP",
+          "type": "content",
+          "content": "Dynamic Programming solves complex problems by breaking them into overlapping subproblems and storing results.",
+          "keyPoints": [
+            {
+              "label": "Overlapping Subproblems",
+              "description": "Same subproblems solved multiple times"
+            },
+            {
+              "label": "Optimal Substructure",
+              "description": "Optimal solution from optimal subproblems"
+            },
+            {
+              "label": "Memoization",
+              "description": "Top-down: store results in cache"
+            },
+            {
+              "label": "Tabulation",
+              "description": "Bottom-up: build solution iteratively"
+            }
+          ]
+        },
+        {
+          "id": "13-2",
+          "title": "Fibonacci with Memoization",
+          "type": "code",
+          "language": "javascript",
+          "code": "// Memoization (top-down)\nfunction fibonacci(n, memo = {}) {\n    if (n <= 1) return n;\n    if (memo[n]) return memo[n];\n    \n    memo[n] = fibonacci(n - 1, memo) + fibonacci(n - 2, memo);\n    return memo[n];\n}\n\nconsole.log(fibonacci(10));  // 55\n\n// Tabulation (bottom-up)\nfunction fibonacciTab(n) {\n    const dp = [0, 1];\n    for (let i = 2; i <= n; i++) {\n        dp[i] = dp[i - 1] + dp[i - 2];\n    }\n    return dp[n];\n}\n\nconsole.log(fibonacciTab(10));  // 55",
+          "explanation": "Time: O(n) - Each subproblem computed once. Space: O(n)"
+        }
+      ]
+    }
+  ]
+}

@@ -4,6 +4,8 @@
   "description": "Master Java from basic to advanced level with hands-on examples and interview preparation",
   "difficulty": "Basic to Advanced",
   "duration": "50+ hours",
+  "language": "java",
+  "languageLabel": "Java",
   "sections": [
     {
       "id": "1",

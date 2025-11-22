@@ -4,6 +4,8 @@
   "description": "Learn essential data structures and algorithms with practical examples and interview prep",
   "difficulty": "Intermediate to Advanced",
   "duration": "45+ hours",
+  "language": "java",
+  "languageLabel": "Java",
   "sections": [
     {
       "id": "1",
@@ -334,11 +336,172 @@
     },
     {
       "id": "10",
-      "number": "5.1",
-      "title": "Dynamic Programming",
+      "number": "4.3",
+      "title": "Hash Tables",
       "subsections": [
         {
           "id": "10-1",
+          "title": "Hash Table Basics",
+          "type": "content",
+          "content": "Hash Tables use a hash function to map keys to values. Provides O(1) average case lookup.",
+          "keyPoints": [
+            {
+              "label": "Hash Function",
+              "description": "Maps keys to array indices"
+            },
+            {
+              "label": "Collision Handling",
+              "description": "Chaining or open addressing"
+            },
+            {
+              "label": "Load Factor",
+              "description": "Ratio of entries to table size"
+            },
+            {
+              "label": "Use Cases",
+              "description": "Caching, dictionaries, symbol tables"
+            }
+          ]
+        },
+        {
+          "id": "10-2",
+          "title": "HashMap Implementation",
+          "type": "code",
+          "language": "java",
+          "code": "Map<String, Integer> map = new HashMap<>();\nmap.put(\"apple\", 5);\nmap.put(\"banana\", 3);\nmap.put(\"orange\", 7);\n\nint apples = map.get(\"apple\");  // 5\nboolean hasKey = map.containsKey(\"banana\");  // true\n\nfor (Map.Entry<String, Integer> entry : map.entrySet()) {\n    System.out.println(entry.getKey() + \": \" + entry.getValue());\n}",
+          "explanation": "Time: O(1) average - O(n) worst case. Space: O(n)"
+        }
+      ]
+    },
+    {
+      "id": "11",
+      "number": "4.4",
+      "title": "Binary Search Trees",
+      "subsections": [
+        {
+          "id": "11-1",
+          "title": "BST Properties",
+          "type": "content",
+          "content": "Binary Search Tree: Left subtree < Node < Right subtree. Enables efficient searching.",
+          "keyPoints": [
+            {
+              "label": "Search",
+              "description": "O(log n) average, O(n) worst case"
+            },
+            {
+              "label": "Insert",
+              "description": "O(log n) average, O(n) worst case"
+            },
+            {
+              "label": "Delete",
+              "description": "O(log n) average, O(n) worst case"
+            },
+            {
+              "label": "In-Order Traversal",
+              "description": "Produces sorted sequence"
+            }
+          ]
+        },
+        {
+          "id": "11-2",
+          "title": "BST Search and Insert",
+          "type": "code",
+          "language": "java",
+          "code": "public class BST {\n    class Node {\n        int data;\n        Node left, right;\n        Node(int data) { this.data = data; }\n    }\n    \n    private Node root;\n    \n    public void insert(int data) {\n        root = insertRec(root, data);\n    }\n    \n    private Node insertRec(Node node, int data) {\n        if (node == null) return new Node(data);\n        if (data < node.data) node.left = insertRec(node.left, data);\n        else if (data > node.data) node.right = insertRec(node.right, data);\n        return node;\n    }\n    \n    public boolean search(int data) {\n        return searchRec(root, data);\n    }\n    \n    private boolean searchRec(Node node, int data) {\n        if (node == null) return false;\n        if (data == node.data) return true;\n        if (data < node.data) return searchRec(node.left, data);\n        return searchRec(node.right, data);\n    }\n}"
+        }
+      ]
+    },
+    {
+      "id": "12",
+      "number": "5.1",
+      "title": "Complexity Analysis",
+      "subsections": [
+        {
+          "id": "12-1",
+          "title": "Big-O Notation",
+          "type": "table",
+          "data": [
+            {
+              "Notation": "O(1)",
+              "Name": "Constant",
+              "Example": "Array access by index"
+            },
+            {
+              "Notation": "O(log n)",
+              "Name": "Logarithmic",
+              "Example": "Binary search"
+            },
+            {
+              "Notation": "O(n)",
+              "Name": "Linear",
+              "Example": "Linear search"
+            },
+            {
+              "Notation": "O(n log n)",
+              "Name": "Linearithmic",
+              "Example": "Merge sort"
+            },
+            {
+              "Notation": "O(n²)",
+              "Name": "Quadratic",
+              "Example": "Bubble sort"
+            },
+            {
+              "Notation": "O(2^n)",
+              "Name": "Exponential",
+              "Example": "Recursive fibonacci"
+            }
+          ]
+        },
+        {
+          "id": "12-2",
+          "title": "How to Calculate Complexity",
+          "type": "content",
+          "content": "Count operations relative to input size (n):\n1. Count loops and recursive calls\n2. Identify dominant operation\n3. Express in Big-O notation\n\nExample: Nested loops = O(n²), Single loop = O(n), Halving input = O(log n)"
+        }
+      ]
+    },
+    {
+      "id": "13",
+      "number": "5.2",
+      "title": "DFS and Graph Algorithms",
+      "subsections": [
+        {
+          "id": "13-1",
+          "title": "Depth-First Search (DFS)",
+          "type": "code",
+          "language": "java",
+          "code": "public static void dfs(int[][] graph, int start) {\n    boolean[] visited = new boolean[graph.length];\n    dfsRec(graph, start, visited);\n}\n\nprivate static void dfsRec(int[][] graph, int node, boolean[] visited) {\n    visited[node] = true;\n    System.out.print(node + \" \");\n    \n    for (int neighbor : graph[node]) {\n        if (!visited[neighbor]) {\n            dfsRec(graph, neighbor, visited);\n        }\n    }\n}",
+          "explanation": "Time: O(V+E) - Explores deep first using recursion or stack"
+        }
+      ]
+    },
+    {
+      "id": "14",
+      "number": "6.1",
+      "title": "Problem-Solving Techniques",
+      "subsections": [
+        {
+          "id": "14-1",
+          "title": "Recursion & Backtracking",
+          "type": "content",
+          "content": "**Recursion**: Function calls itself with smaller input\n- Base case: Stops recursion\n- Recursive case: Breaks problem down\n\n**Backtracking**: Build solution incrementally, abandon invalid paths\n- N-queens problem\n- Sudoku solver\n- Permutations and combinations"
+        },
+        {
+          "id": "14-2",
+          "title": "Greedy & Divide-and-Conquer",
+          "type": "content",
+          "content": "**Greedy Algorithms**: Make locally optimal choice at each step\n- Activity selection\n- Huffman coding\n- Dijkstra's algorithm\n\n**Divide and Conquer**: Break problem into subproblems\n- Merge sort\n- Quick sort\n- Binary search"
+        }
+      ]
+    },
+    {
+      "id": "15",
+      "number": "6.2",
+      "title": "Dynamic Programming",
+      "subsections": [
+        {
+          "id": "15-1",
           "title": "Introduction to DP",
           "type": "content",
           "content": "Dynamic Programming is an optimization technique that solves complex problems by breaking them into simpler subproblems.",
@@ -362,7 +525,7 @@
           ]
         },
         {
-          "id": "10-2",
+          "id": "15-2",
           "title": "Fibonacci with Memoization",
           "type": "code",
           "language": "java",
