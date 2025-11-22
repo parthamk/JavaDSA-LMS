@@ -1,11 +1,11 @@
 import axios from "axios";
 
-// Use relative paths for API calls - Vite proxy will handle routing
-// Vite proxy is configured to route /api/* to http://localhost:5000
-const API_URL = "/api/auth";
+const api = axios.create({
+  baseURL: `${import.meta.env.VITE_API_URL.replace(/\/$/, "")}/api/auth`,
+});
 
 export const register = async (userData) => {
-  const response = await axios.post(`${API_URL}/register`, userData);
+  const response = await api.post("/register", userData);
   if (response.data.token) {
     localStorage.setItem("token", response.data.token);
   }
@@ -13,7 +13,7 @@ export const register = async (userData) => {
 };
 
 export const login = async (credentials) => {
-  const response = await axios.post(`${API_URL}/login`, credentials);
+  const response = await api.post("/login", credentials);
   if (response.data.token) {
     localStorage.setItem("token", response.data.token);
   }
@@ -31,7 +31,7 @@ export const getProfile = async () => {
     throw new Error("No token found");
   }
 
-  const response = await axios.get(`${API_URL}/profile`, {
+  const response = await api.get("/profile", {
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
