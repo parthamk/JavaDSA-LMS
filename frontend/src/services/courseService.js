@@ -1,33 +1,35 @@
-import axios from 'axios'
+import axios from "axios";
 
-const API_URL = '/api/courses'
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_URL + "/api/courses",
+});
 
 export const getCourses = async () => {
-  const response = await axios.get(API_URL)
-  return response.data
-}
+  const response = await api.get("/");
+  return response.data;
+};
 
 export const getCourseContent = async (courseId) => {
-  const response = await axios.get(`${API_URL}/${courseId}`)
-  return response.data
-}
+  const response = await api.get(`/${courseId}`);
+  return response.data;
+};
 
 export const getSectionContent = async (courseId, sectionId) => {
-  const response = await axios.get(`${API_URL}/${courseId}/section/${sectionId}`)
-  return response.data
-}
+  const response = await api.get(`/${courseId}/section/${sectionId}`);
+  return response.data;
+};
 
 export const updateProgress = async (courseId, sectionId) => {
-  const response = await axios.post(`${API_URL}/${courseId}/progress`, { sectionId })
-  return response.data
-}
+  const response = await api.post(`/${courseId}/progress`, { sectionId });
+  return response.data;
+};
 
 export const toggleBookmark = async (courseId, sectionId) => {
-  const response = await axios.post(`${API_URL}/${courseId}/bookmark`, { sectionId })
-  return response.data
-}
+  const response = await api.post(`/${courseId}/bookmark`, { sectionId });
+  return response.data;
+};
 
 export const saveNote = async (courseId, sectionId, note) => {
-  const response = await axios.post(`${API_URL}/${courseId}/notes`, { sectionId, note })
-  return response.data
-}
+  const response = await api.post(`/${courseId}/notes`, { sectionId, note });
+  return response.data;
+};
