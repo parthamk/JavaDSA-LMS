@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Container, Row, Col, Button, Spinner, Card, Badge } from 'react-bootstrap'
+import { getGroupedCourses } from '../services/courseService'
 
 const Courses = () => {
   const [groupedCourses, setGroupedCourses] = useState([])
@@ -13,21 +14,13 @@ const Courses = () => {
     const fetchCourses = async () => {
       try {
         setLoading(true)
-        const response = await fetch('/api/courses/grouped')
-        
-        if (!response.ok) {
-          // Log full error to console for debugging
-          console.error(`API Error: ${response.status} ${response.statusText}`)
-          throw new Error(`HTTP ${response.status}: Failed to fetch courses`)
-        }
-        
-        const data = await response.json()
+        const data = await getGroupedCourses()
         setGroupedCourses(data)
         setError(null)
       } catch (err) {
         // Log full error to console for debugging
         console.error('Error fetching courses:', err)
-        
+
         // Show user-friendly message
         setError('Failed to load courses. Please try again later.')
         setGroupedCourses([])

@@ -33,3 +33,8 @@ export const saveNote = async (courseId, sectionId, note) => {
   const response = await api.post(`/${courseId}/notes`, { sectionId, note });
   return response.data;
 };
+
+export const getGroupedCourses = async () => {
+  const response = await api.get("/grouped");
+  return response.data;
+};

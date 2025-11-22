@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { Container, Row, Col, Button, ProgressBar, ListGroup, Form, Badge } from 'react-bootstrap'
-import coursesData from '../data/courses.json'
+import { getCourseContent, getSectionContent } from '../services/courseService'
 
 // Custom renderers for ReactMarkdown
 const markdownComponents = {
@@ -400,16 +400,40 @@ const CourseViewer = () => {
   const [currentNote, setCurrentNote] = useState('')
 
   useEffect(() => {
-    const foundCourse = coursesData.courses.find((c) => c.id === courseId)
-    if (foundCourse) {
-      setCourse(foundCourse)
-      const savedBookmarks = JSON.parse(localStorage.getItem(`bookmarks-${courseId}`) || '[]')
-      const savedNotes = JSON.parse(localStorage.getItem(`notes-${courseId}`) || '{}')
-      setBookmarks(savedBookmarks)
-      setNotes(savedNotes)
-    } else {
-      navigate('/courses')
+    const fetchCourseData = async () => {
+      try {
+        const courseData = await getCourseContent(courseId)
+        setCourse(courseData)
+        // Set initial section based on URL or first section
+        const initialSectionIndex = courseData.toc.findIndex(
+          (section) => section.id === (sectionId || courseData.toc[0]?.id)
+        )
+        setCurrentSectionIndex(Math.max(0, initialSectionIndex))
+
+        // Fetch and set initial content for the current section
+        const initialSectionId = courseData.toc[Math.max(0, initialSectionIndex)]?.id
+        if (initialSectionId) {
+          const sectionContent = await getSectionContent(courseId, initialSectionId)
+          setCourse((prevCourse) => ({
+            ...prevCourse,
+            sections: prevCourse.sections.map((sec, idx) =>
+              idx === Math.max(0, initialSectionIndex)
+                ? { ...sec, content: sectionContent.content }
+                : sec
+            ),
+          }))
+        }
+
+        const savedBookmarks = JSON.parse(localStorage.getItem(`bookmarks-${courseId}`) || '[]')
+        const savedNotes = JSON.parse(localStorage.getItem(`notes-${courseId}`) || '{}')
+        setBookmarks(savedBookmarks)
+        setNotes(savedNotes)
+      } catch (error) {
+        console.error('Error fetching course content:', error)
+        navigate('/courses')
+      }
     }
+    fetchCourseData()
   }, [courseId, navigate])
 
   if (!course) return <div className="text-center py-5">Loading...</div>
@@ -475,11 +499,10 @@ const CourseViewer = () => {
             <div
               key={section.id}
               onClick={() => setCurrentSectionIndex(index)}
-              className={`p-2 mb-2 rounded cursor-pointer d-flex align-items-center gap-2 ${
-                index === currentSectionIndex
+              className={`p-2 mb-2 rounded cursor-pointer d-flex align-items-center gap-2 ${index === currentSectionIndex
                   ? 'bg-primary text-white'
                   : 'bg-light text-muted'
-              }`}
+                }`}
               style={{ cursor: 'pointer', transition: 'all 0.3s ease' }}
             >
               {bookmarks.includes(section.id) && <span>⭐</span>}
