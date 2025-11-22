@@ -14,14 +14,21 @@ const Courses = () => {
       try {
         setLoading(true)
         const response = await fetch('/api/courses/grouped')
+        
         if (!response.ok) {
-          throw new Error('Failed to fetch courses')
+          // Log full error to console for debugging
+          console.error(`API Error: ${response.status} ${response.statusText}`)
+          throw new Error(`HTTP ${response.status}: Failed to fetch courses`)
         }
+        
         const data = await response.json()
         setGroupedCourses(data)
         setError(null)
       } catch (err) {
+        // Log full error to console for debugging
         console.error('Error fetching courses:', err)
+        
+        // Show user-friendly message
         setError('Failed to load courses. Please try again later.')
         setGroupedCourses([])
       } finally {
