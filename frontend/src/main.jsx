@@ -6,7 +6,8 @@ import './index.css'
 import axios from 'axios'
 
 // Configure axios defaults
-axios.defaults.baseURL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+// Use relative paths to leverage Vite proxy - do NOT set absolute baseURL
+// axios.defaults.baseURL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
 
 // Request interceptor to add token
 axios.interceptors.request.use((config) => {

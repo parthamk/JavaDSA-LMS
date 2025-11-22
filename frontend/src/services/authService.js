@@ -1,6 +1,7 @@
 import axios from "axios";
 
-// Use relative path for API calls - Vite proxy will handle routing
+// Use relative paths for API calls - Vite proxy will handle routing
+// Vite proxy is configured to route /api/* to http://localhost:5000
 const API_URL = "/api/auth";
 
 export const register = async (userData) => {
