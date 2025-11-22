@@ -21,7 +21,7 @@ app.use(express.json({ limit: "100kb" }));
 app.use(express.urlencoded({ extended: true }));
 
 const allowedOrigins = [
-  process.env.VITE_API_URL || "http://localhost:5173",
+  process.env.FRONTEND_URL || "http://localhost:5173",
   "https://javadsa-lms.vercel.app",
 ];
 
